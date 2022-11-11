@@ -8,15 +8,15 @@ module.exports = async function config() {
   const math = (await import("remark-math")).default;
   const katex = (await import("rehype-katex")).default;
   return {
-    title: "Terra Docs",
-    tagline: "The official docs for the Terra blockchain",
-    url: "https://docs.terra.money",
+    title: "Alliance Docs",
+    tagline: "The official docs for Alliance",
+    url: "https://docs.alliance.money",
     baseUrl: "/",
     onBrokenLinks: "throw",
     onBrokenMarkdownLinks: "warn",
     favicon: "img/favicon.ico",
     organizationName: "terra-money", // Usually your GitHub org/user name.
-    projectName: "docs", // Usually your repo name.
+    projectName: "alliance-docs", // Usually your repo name.
     i18n: {
       defaultLocale: "en",
       locales: ["en"],
@@ -45,7 +45,7 @@ module.exports = async function config() {
             routeBasePath: "/", // Serve the docs at the site's root
             // Please change this to your repo.
             // Remove this to remove the "edit this page" links.
-            editUrl: "https://github.com/terra-money/docs/blob/main/",
+            editUrl: "https://github.com/terra-money/alliance-docs/blob/main/",
           },
           blog: false,
           theme: {
@@ -56,22 +56,6 @@ module.exports = async function config() {
             ],
           },
         }),
-      ],
-      ["docusaurus-plugin-matomo", {}],
-      [
-        "redocusaurus",
-        {
-          specs: [
-            {
-              id: "complete",
-              spec: "https://phoenix-lcd.terra.dev/swagger/swagger.yaml",
-              route: "/api/",
-            },
-          ],
-          theme: {
-            primaryColor: "#1890ff",
-          },
-        },
       ],
     ],
     themes: ["mdx-v2"],
@@ -90,23 +74,32 @@ module.exports = async function config() {
           indexName: 'terra-project',
           contextualSearch: true,
         },
+        tableOfContents: {
+          minHeadingLevel: 2,
+          maxHeadingLevel: 4,
+        },
+        colorMode: {
+          defaultMode: 'dark',
+          disableSwitch: false,
+          respectPrefersColorScheme: true,
+        },
         navbar: {
-          title: "",
-          logo: {
-            alt: "Terra Docs",
-            src: "img/logo_light.svg",
-            srcDark: "img/logo_dark.svg",
-          },
+          title: "Enterprise Docs",
+          //logo: {
+            //alt: "Enterprise Docs",
+            //src: "img/logo_light.svg",
+            //srcDark: "img/logo_dark.svg",
+          //},
           items: [
             {
-              href: "https://terra.money", //front-end URL
+              href: "https://enterprise-protocol-app.pages.dev/", //front-end URL
               position: "right",
-              label: "terra.money",
+              label: "Enterprise App",
               className: "header-terra-link",
               "aria-label": "Terra Money",
             },
             {
-              href: "https://github.com/terra-money/docs",
+              href: "https://github.com/terra-money/alliance-docs",
               position: "right",
               className: "header-github-link",
               "aria-label": "GitHub repository",
@@ -117,12 +110,6 @@ module.exports = async function config() {
         prism: {
           theme: lightCodeTheme,
           darkTheme: darkCodeTheme,
-        },
-        matomo: {
-          matomoUrl: "https://terradocs.matomo.cloud/",
-          siteId: "2",
-          phpLoader: "matomo.php",
-          jsLoader: "matomo.js",
         },
       }),
       stylesheets: [
