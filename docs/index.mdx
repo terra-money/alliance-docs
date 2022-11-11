@@ -1,1 +1,7 @@
 # Alliance Docs
+
+## Overview
+ 
+Alliance is a cosmos SDK module that leverages interchain staking to form economic alliances among blockchains. 
+On a high level, Alliance allows arbitrary assets approved by governance, including staking assets bridged through an IBC channel (ICS-004), to be delegated to validators and participate in block production and governance. Voting power and fee distribution is divided up among stakers of different assets according to a governance-determined ratio. We call these alliance assets. 
+Staking rewards of alliance assets are traded with staking rewards of native assets, thereby forming an economic alliance among chains. For instance, suppose a chain Example that supports the alliance module has two alliance assets, a liquid staking derivative (LSD) for Luna and an LSD for ATOM. Example governance can set an annual tax on the staking yield for both Luna and ATOM LSDs, which is distributed to all Example stakers. Example governance can also set a “reward ratio” to each of the Example, LunaLSD, AtomLSD staking assets, which distributes the fees and block inflation according to said ratio every block. 
