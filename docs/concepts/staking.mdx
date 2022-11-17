@@ -1,0 +1,79 @@
+---
+sidebar_position: 2
+---
+
+# Voting power and staking
+
+Alliances assets can be added to new chains prior to genesis. In order to add an Alliance asset to an existing chain, you’ll need to specify the asset’s parameters and create a governance proposal. Visit the integration guide for more information on adding an Alliance asset.
+
+## Voting Power of Alliance Assets
+
+To preserve the role of a native staking asset and to prevent the power dilution of a chain's native assests, each Alliance asset added to a chain is given a  `RewardWeight`. This parameter determines how much voting power a new Alliance asset has in proportion to the natively staked token. A chain’s native staking asset always maintains a reward weight of `1`.
+
+$$ Asset voting power percentage = (reward weight)/sum of all staking asset weights $$
+
+**Example:**
+
+A chain with the Alliance module enabled has two assets: a native staking asset and an Alliance asset named `Ally 1`. If `Ally 1` has a reward weight of `1.0`,  the voting power of the entire staked supply of `Ally 1` will be equal to the total voting power of the entire staked supply of the native asset. Each asset will have 50% of the voting power.
+
+$$50\%= 1/(1+1)$$
+
+If another token (`Ally 2`) is added to the chain with a reward weight of `.5`, the percentages of voting power change in relation to the whole, but their proportions remain the same. The native staking asset will have 40% of the power,` Ally 1` will have 40%, and `Ally 2` will have 20%.
+
+$$20\% = .5/(1 + 1 + .5)$$
+
+[https://lh4.googleusercontent.com/x7AJbgYo1YoUw_jMnVnnqJf_ye_pkSmvp3Iv8M2k6tfqg6_qdnkoK54C7h5YtJC030f8TYkQ5MD52OqTH1NAZDUXdHPYfwLVQfvUjjyWUX9FYq4iQNUZ_PikJVWDFf5oYdUwmvq-IRKyR3aONMLOTvsixEhIlyBLiwzW3ynK3_8-Z32YaR8J5DLjfKKulQ](https://lh4.googleusercontent.com/x7AJbgYo1YoUw_jMnVnnqJf_ye_pkSmvp3Iv8M2k6tfqg6_qdnkoK54C7h5YtJC030f8TYkQ5MD52OqTH1NAZDUXdHPYfwLVQfvUjjyWUX9FYq4iQNUZ_PikJVWDFf5oYdUwmvq-IRKyR3aONMLOTvsixEhIlyBLiwzW3ynK3_8-Z32YaR8J5DLjfKKulQ)
+
+### RewardDelayTime
+
+In addition to the `RewardWeight` parameter, new Alliances can also specify a `RewardDelayTime`. This parameter defines the amount of time users have to stake their new Alliance assets before the voting power of the new asset is applied to the chain. This delay prevents early stakers from gaining outsized voting power with a relatively small total stake of a new asset. The default setting for this parameter is one week.
+
+## Staking
+
+The Alliance module does not require changes to any native modules. To users, staking an Alliance asset is no different than staking a native asset. They can stake, unstake, redelegate, vote, or earn rewards with an Alliance asset just like they can when staking a native asset. All the underlying logic behind Alliance assets is fully contained within the x/alliance module, which works in tandem with the other Cosmos modules.
+
+Cosmos chains are built to only have one native staking asset. In order to preserve the functionality of Cosmos-SDK modules, the Alliance module does not stake Alliance assets directly to validators. Instead, the module keeps track of all Alliance asset staking accounts, and mints a proportional amount of native tokens. These tokens are then staked to a validator on behalf of a delegator. Whenever Alliance assets are staked, unstaked, or redelegated, the Alliance module performs all these actions in the background using the chain’s native asset, minting or burning as needed to ensure staking amounts are always current. This method of staking ensures compatibility with Cosmos-SDK chains, and does not require any changes to existing Cosmos modules. The Alliance module account owns all delegations in custody of stakers and keeps a record of all staked assets. Native stakers use the `x/staking` module to stake their assets, and Alliance assets are staked using the `x/alliance` module.
+
+## Rebalancing
+
+To maintain the voting power proportions between native and Alliance assets, the Alliance module updates it’s staking delegations through minting and burning native coins. This process is called rebalancing. The rebalancing of the staked supply of assets updates the voting power of validators proportional to the `RewardWeight` parameters.
+
+The following example shows how the Alliance module stakes native assets on behalf of delegators, in order to preserve the reward weight. With a reward weight ratio of 1:1:1, the voting power between all assets is equal, regardless of an asset’s staked supply.
+
+[https://lh4.googleusercontent.com/QeRfdA3sB8vw_Q0ZmMmeryaT_Xnuhl-_QPOWC3GeoZFASJ4or9kd2n6L9oUSxjb8M6slvKV3CBDvcuMkMIpTiDbuCcDaEb33CIaust7PYH1-wo7sjLdKFlEbaQn4TeyAKIteLlxwtKU7_tPOVOlPVR0NULOnvXjg_j-NCRaMunm19Bft1weAsnU0QatDRQ](https://lh4.googleusercontent.com/QeRfdA3sB8vw_Q0ZmMmeryaT_Xnuhl-_QPOWC3GeoZFASJ4or9kd2n6L9oUSxjb8M6slvKV3CBDvcuMkMIpTiDbuCcDaEb33CIaust7PYH1-wo7sjLdKFlEbaQn4TeyAKIteLlxwtKU7_tPOVOlPVR0NULOnvXjg_j-NCRaMunm19Bft1weAsnU0QatDRQ)
+
+To conserve computing resources, rebalancing occurs once every block. If there is any change in delegations during a block, the Alliance module will update it’s staking proportions to ensure that validator delegations reflect the state of staked assets.
+
+### Voting power rebalance
+
+Rebalancing is calculated using a proportion of each Alliance asset’s voting power, specified by the asset’s `RewardWeight`. In governance, one staked native coin is equal to one vote. Therefore, the total voting power of staked Alliance assets must be proportional to the amount of native coins staked. If an Alliance asset has a reward weight of `1`, the total voting power of the Alliance asset’s staked supply is always equal to the number of staked native coins, regardless of the Alliance asset’s supply.
+
+The following example illustrates rebalancing of voting power when the staked supply of the native token changes. This example shows staking pools as total amounts across all validators. Note that the voting power proportions set by the reward weight must always be constant with the supply of the native staked asset, regardless of the supply change of Alliance assets.
+
+[https://lh6.googleusercontent.com/6tT3ByM0vFYGxr115AmkXXX9Opx56qMzgqXT4XlYKvxcOqHxLk924iiNeobxwYX8p6xmXblt7hVKyzIc8CHa7pO_TX3KbU6RmkjU9ZndFRa1goP1FqGsq1PKo51hPjwytHx2j45sUo0jgBjeEww1Bzgn2CgB_IVxB7piec_v0O4a8M1kM2cOjuvXmqUE](https://lh6.googleusercontent.com/6tT3ByM0vFYGxr115AmkXXX9Opx56qMzgqXT4XlYKvxcOqHxLk924iiNeobxwYX8p6xmXblt7hVKyzIc8CHa7pO_TX3KbU6RmkjU9ZndFRa1goP1FqGsq1PKo51hPjwytHx2j45sUo0jgBjeEww1Bzgn2CgB_IVxB7piec_v0O4a8M1kM2cOjuvXmqUE)
+
+### Calculating a rebalance
+
+The following equations illustrate how voting power is calculated during rebalances.
+
+Because all votes are based on a $1 staked native asset = 1 vote$ constant, the total number of votes possible for all assets can be calculated by multiplying the sum of reward weights by the total number of staked native assets.
+
+$$ Total votes for all assets = (Sum of all reward weights) * (total staked native token supply) $$
+
+In order to calculate the total number of votes for a specific asset, the reward weight of that asset can be multiplied by the total number of staked native tokens.
+
+$$ Specific asset total votes= (asset reward weight)* (total staked native token supply) $$
+
+So far, the previous equations describe values for the total staking pools of assets shared across all validators. Although the total voting power proportion for assets must remain constant, the voting power of individual validators will vary, depending on their proportion of the total staked supply. To figure the voting power of an asset staked to a specific validator, the ratio between the asset amount staked to a validator and the asset’s total staked supply is multiplied by the assets total votes. This product will determine the voting power staked to a validator for a specific asset.
+
+$$ validator votes for a specific asset = staked asset amount/  asset total staked supply * specific asset total votes $$
+
+The following example shows the voting power rebalancing of a staked Alliance asset (AL1) when a user redelegates from one validator to another. Note that the total supplies of staked assets remain constant.
+
+## 
+
+[https://lh6.googleusercontent.com/sCfpKvDxQiCu6ZcA2kK7bKeDM2YM0k0_8QOcxkKGRHdkT-IEot0BNjkePugLZaIg8ONjBAJ9k4pkEV4wG6wfvDvMN2568Mns7_UcK4NMxmV2OOFfl8kqbM0LfVQk1zhqdwpauqD3JIX-PqXeEIz-9_wUdddSecDxsKIgkGi23n2QVqQhDTq0br9yUnvImA](https://lh6.googleusercontent.com/sCfpKvDxQiCu6ZcA2kK7bKeDM2YM0k0_8QOcxkKGRHdkT-IEot0BNjkePugLZaIg8ONjBAJ9k4pkEV4wG6wfvDvMN2568Mns7_UcK4NMxmV2OOFfl8kqbM0LfVQk1zhqdwpauqD3JIX-PqXeEIz-9_wUdddSecDxsKIgkGi23n2QVqQhDTq0br9yUnvImA)
+
+## 
+
+##
