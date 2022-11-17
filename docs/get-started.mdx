@@ -1,0 +1,254 @@
+---
+sidebar_position: 3
+---
+# Getting Started
+
+### 1.1 Prerequisites
+
+The Alliance Module requires:
+
+- CosmosSDK v0.46.x or greater
+- fully-operational [x/auth](https://github.com/cosmos/cosmos-sdk/blob/main/x/auth/README.md), [x/bank](https://github.com/cosmos/cosmos-sdk/blob/main/x/bank/README.md), [x/staking](https://github.com/cosmos/cosmos-sdk/blob/main/x/staking/README.md), [x/distribution](https://github.com/cosmos/cosmos-sdk/blob/main/x/distribution/README.md) and [x/gov](https://github.com/cosmos/cosmos-sdk/blob/main/x/gov/README.md) modules
+
+### 1.2 Configuring and Adding Alliance to a CosmosSDK Chain
+
+```
+**Refer to the [following pull request](https://github.com/terra-money/andromeda-oracle/pull/1) for an implementation example of the following steps.**
+
+1. Add the Alliance package to the `go.mod` file with the [latest released version](https://github.com/terra-money/alliance/tags) and install it.
+
+**require (**
+
+**...**
+
+**github.com/terra-money/alliance v<LATEST-VERSION>**
+
+**...**
+
+**)**
+
+1. Add the following modules to `app.go`
+
+**alliancemodule "github.com/terra-money/alliance/x/alliance"**
+
+**alliancemoduleclient "github.com/terra-money/alliance/x/alliance/client"**
+
+**alliancemodulekeeper "github.com/terra-money/alliance/x/alliance/keeper"**
+
+**alliancemoduletypes "github.com/terra-money/alliance/x/alliance/types"**
+
+1. Register the AllianceKeeper in App struct.
+
+**type App struct {**
+
+**...**
+
+**AllianceKeeper   alliancemodulekeeper.Keeper**
+
+**...**
+
+**}**
+
+1. Add the Alliance module into the BasicManager instantiation.
+
+**ModuleBasics = module.NewBasicManager(**
+
+**...**
+
+**alliancemodule.AppModuleBasic{},**
+
+**...**
+
+**)**
+
+1. Add the alliance module to the app. This needs to be specified after the `stakingKeeper` is instantiated.
+
+**...**
+
+**stakingKeeper := stakingkeeper.NewKeeper(**
+
+**appCodec,**
+
+**keys[stakingtypes.StoreKey],**
+
+**app.AccountKeeper,**
+
+**app.BankKeeper,**
+
+**app.GetSubspace(stakingtypes.ModuleName),**
+
+**)**
+
+**...**
+
+**app.AllianceKeeper = alliancemodulekeeper.NewKeeper(**
+
+**appCodec,**
+
+**keys[alliancemoduletypes.StoreKey],**
+
+**app.GetSubspace(alliancemoduletypes.ModuleName),**
+
+**app.AccountKeeper,**
+
+**app.BankKeeper,**
+
+**&app.StakingKeeper,**
+
+**app.DistrKeeper,**
+
+**)**
+
+1. Add the alliance staking hooks to app.StakingKeeper.
+
+**app.StakingKeeper = *stakingKeeper.SetHooks(**
+
+**stakingtypes.NewMultiStakingHooks(app.DistrKeeper.Hooks(),**
+
+**app.SlashingKeeper.Hooks(), app.AllianceKeeper.StakingHooks()),**
+
+**)**
+
+1. Add the requisite alliance module types to the module account permissions.
+
+**maccPerms = map[string][]string{**
+
+**authtypes.FeeCollectorName:          nil,**
+
+**distrtypes.ModuleName:               nil,**
+
+**icatypes.ModuleName:                 nil,**
+
+**minttypes.ModuleName:                {authtypes.Minter},**
+
+**stakingtypes.BondedPoolName:         {authtypes.Burner, authtypes.Staking},**
+
+**stakingtypes.NotBondedPoolName:      {authtypes.Burner, authtypes.Staking},**
+
+**govtypes.ModuleName:                 {authtypes.Burner},**
+
+**ibctransfertypes.ModuleName:         {authtypes.Minter, authtypes.Burner},**
+
+**alliancemoduletypes.ModuleName:      {authtypes.Minter, authtypes.Burner},**
+
+**alliancemoduletypes.RewardsPoolName: nil,**
+
+**}**
+
+1. Add the alliance storekey to the KVStore.
+
+**keys := sdk.NewKVStoreKeys(**
+
+**...**
+
+**alliancemoduletypes.StoreKey,**
+
+**...**
+
+**)**
+
+1. Add the alliance module to the app manager and simulation manager instantiations.
+
+**app.mm = module.NewManager(**
+
+**...**
+
+**icaModule,**
+
+**alliancemodule.NewAppModule(appCodec, app.AllianceKeeper, app.StakingKeeper, app.AccountKeeper, app.BankKeeper, app.interfaceRegistry),**
+
+**...**
+
+**)**
+
+**app.sm = module.NewSimulationManager(**
+
+**...**
+
+**transferModule,**
+
+**alliancemodule.NewAppModule(appCodec, app.AllianceKeeper, app.StakingKeeper, app.AccountKeeper, app.BankKeeper, app.interfaceRegistry),**
+
+**...**
+
+**)**
+
+1. Add the module to the begin blocker, end blocker and the init genesis as the final argument.
+
+**app.mm.SetOrderBeginBlockers(**
+
+**...**
+
+**alliancemoduletypes.ModuleName,**
+
+**)**
+
+**app.mm.SetOrderEndBlockers(**
+
+**...**
+
+**alliancemoduletypes.ModuleName,**
+
+**)**
+
+**app.mm.SetOrderInitGenesis(**
+
+**...**
+
+**alliancemoduletypes.ModuleName,**
+
+**)**
+
+1. Add the Alliance proposal handler route to the governance module.
+
+**govRouter.**
+
+**AddRoute(govtypes.RouterKey, govv1beta1.ProposalHandler).**
+
+**...**
+
+**AddRoute(ibcclienttypes.RouterKey, ibcclient.NewClientProposalHandler(app.IBCKeeper.ClientKeeper)).**
+
+**AddRoute(alliancemoduletypes.RouterKey, alliancemodule.NewAllianceProposalHandler(app.AllianceKeeper))**
+
+1. Add the governance proposal handlers.
+
+**govProposalHandlers = append(govProposalHandlers,**
+
+**...**
+
+**ibcclientclient.UpgradeProposalHandler,**
+
+**alliancemoduleclient.CreateAllianceProposalHandler,**
+
+**alliancemoduleclient.UpdateAllianceProposalHandler,**
+
+**alliancemoduleclient.DeleteAllianceProposalHandler,**
+
+**)**
+
+1. Block the module account address.
+
+**func (app *App) BlockedModuleAccountAddrs() map[string]bool {**
+
+**...**
+
+**delete(modAccAddrs, authtypes.NewModuleAddress(alliancemoduletypes.ModuleName).String())**
+
+**return modAccAddrs**
+
+**}**
+
+1. Add the init params keepers.
+
+**func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino, key, tkey storetypes.StoreKey) paramskeeper.Keeper {**
+
+**...**
+
+**paramsKeeper.Subspace(alliancemoduletypes.ModuleName)**
+
+**return paramsKeeper**
+
+**}**
+
+```
