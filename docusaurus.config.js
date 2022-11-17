@@ -84,7 +84,7 @@ module.exports = async function config() {
           respectPrefersColorScheme: true,
         },
         navbar: {
-          title: "Enterprise Docs",
+          title: "Alliance Docs🤝",
           //logo: {
             //alt: "Enterprise Docs",
             //src: "img/logo_light.svg",
@@ -92,9 +92,9 @@ module.exports = async function config() {
           //},
           items: [
             {
-              href: "https://enterprise-protocol-app.pages.dev/", //front-end URL
+              href: "https://terra.money/", //front-end URL
               position: "right",
-              label: "Enterprise App",
+              label: "terra.money",
               className: "header-terra-link",
               "aria-label": "Terra Money",
             },
