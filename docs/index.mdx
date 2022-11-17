@@ -1,7 +1,17 @@
-# Alliance Docs
+---
+sidebar_position: 1
+---
 
-## Overview
- 
-Alliance is a cosmos SDK module that leverages interchain staking to form economic alliances among blockchains. 
-On a high level, Alliance allows arbitrary assets approved by governance, including staking assets bridged through an IBC channel (ICS-004), to be delegated to validators and participate in block production and governance. Voting power and fee distribution is divided up among stakers of different assets according to a governance-determined ratio. We call these alliance assets. 
-Staking rewards of alliance assets are traded with staking rewards of native assets, thereby forming an economic alliance among chains. For instance, suppose a chain Example that supports the alliance module has two alliance assets, a liquid staking derivative (LSD) for Luna and an LSD for ATOM. Example governance can set an annual tax on the staking yield for both Luna and ATOM LSDs, which is distributed to all Example stakers. Example governance can also set a “reward ratio” to each of the Example, LunaLSD, AtomLSD staking assets, which distributes the fees and block inflation according to said ratio every block. 
+# Alliance overview
+
+Alliance is a cosmos SDK module that leverages interchain staking to form economic alliances among blockchains.
+
+On a high level, Alliance allows arbitrary assets approved by governance, including staking assets bridged through an IBC channel (ICS-004), to be delegated to validators and participate in block production and governance. Voting power and block rewards are divided up among stakers of different assets according to a governance-determined ratio. We call these assets *alliance assets*.
+
+Staking rewards of alliance assets are traded with staking rewards of native assets, thereby forming an economic alliance among chains. For instance, suppose a chain *Example* that supports the alliance module has two alliance assets, a liquid staking derivative (LSD) for Luna and an LSD for ATOM. *Example* governance can set an annual tax (could also be 0) on the staking yield for both Luna and ATOM LSDs, which is distributed to all *Example* stakers. Example governance can also set a “reward ratio” to each of the Example, LunaLSD, AtomLSD staking assets, which distributes the fees and inflation in accordance with said ratio every block. Note that the *Example* chain is trading staking rewards with those of larger, more liquid chains.
+
+- If the annual tax on alliance asset LSDs are set at the staking yield of the supported alliance assets, the primary motivation for forming the alliance is **economic**. The Example chain *pays* rewards of the native chain to attract staking of foreign assets in the alliance, and *earns* staking rewards from foreign chains. *Example* staking becomes more interesting - rewards are paid in assets that are uncorrelated, less volatile, and more liquid.
+- If the annual tax on alliance asset LSDs are set to 0 (or the assets are not LSDs), then the primary motivation for forming the alliance is **security**. By staking LSDs of larger chains on *Example*, stakers of said chains can secure both chains at once and earn higher staking yield than securing just one chain.
+- Likely, alliances will focus on security (no to low tax) and evolve to focusing on economics (mid to full tax), as security of new chains increase as their ecosystems mature. Alliance allows flexible configuration of the reward weight to change over time to accommodate each blockchains’ evolving needs.
+
+The following sections offer a specification of the Alliance Cosmos module.
