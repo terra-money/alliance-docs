@@ -1,0 +1,105 @@
+---
+sidebar_position: 5
+---
+
+# Creating and operating an Alliance
+
+Transactions that affect Alliances can only be executed via the governance module. All stakers agree on creating, updating, or disbanding Alliances through governance proposals.
+
+### 2.2.1. Create an Alliance
+
+Creating an Alliance uses the **/alliance.alliance.MsgCreateAllianceProposal** type. This proposal type describes the **Alliance** attribute with the following properties:
+
+- **Denom**: The address of the Alliance asset that the community wants to whitelist.
+- **RewardWeight: Specifies the ratio of rewards given to each Alliance asset. It does not need to sum to 1 (rate = weight / total_weight).**
+- **TakeRate**: Defines an annualized reward rate that will be redirected to the distribution rewards pool. Used for liquid staking derivatives.
+- **Title**: The name of governance proposal.
+- **Description**: A description of governance proposal.
+
+Example:
+
+**allianced tx gov submit-legacy-proposal create-alliance ibc/uluna 0.5 0.5 --from=demowallet1**
+
+### 2.2.2. Update an alliance
+
+Updating an alliance uses the **/alliance.alliance.MsgUpdateAllianceProposal** type. This action has the same parameters as creating an Alliance. Note that an alliance can be updated only if the parameter **denom** matches a pre-existing Alliance.
+
+Example:
+
+**allianced tx gov submit-legacy-proposal update-alliance ibc/uluna 0.1 0.3 --from=demowallet1**
+
+### 2.2.3. Delete an alliance
+
+Deleting an Alliance is of type **/alliance.alliance.MsgDeleteAllianceProposal**. An Alliance cannot be deleted if there are still coins delegated to that Alliance.
+
+Note: The first step in deleting an Alliance is to update the rewards weight to 0. This will remove all voting power and rewards from the Alliance, effectively removing its influence in the chain.
+
+Example:
+
+**allianced tx gov submit-legacy-proposal delete-alliance ibc/uluna --from=demowallet1**
+
+### 2.3. Interacting with an Alliance
+
+Users can interact with the Alliance module via **[gRPC](https://github.com/terra-money/alliance/blob/main/docs/static/openapi.yml)** or by using the set of subcommands from the Alliance module to **transact** and **query.** For simplicity, the binary and module names are not displayed in the following examples.
+
+Tx:
+
+- **claim-rewards validator-addr denom:**
+
+Claim rewards from a delegation by specifying a denom and a validator address.
+
+- **delegate validator-addr amount**
+
+Delegate an amount of liquid Alliance-enabled coins to a validator from your wallet.
+
+- **redelegate src-validator-addr dst-validator-addr amount**
+
+Redelegate an amount of liquid Alliance-enabled coins from one validator to another from your wallet.
+
+- **undelegate validator-addr amount**
+
+Undelegate an amount of liquid Alliance-enabled coins from a validator. These assets can be claimed after the unbonding period.
+
+Queries:
+
+- **alliance denom**
+
+Query a specific Alliance by denom.
+
+- **alliances**
+
+Query paginated Alliances.
+
+- **delegation delegator-addr validator-addr denom**
+
+Query a delegation to an Alliance by `delegator-addr`, `validator-addr`, and denom.
+
+- **delegations-by-delegator delegator-addr**
+
+Query all paginated Alliance delegations for a particular `delegator-addr`
+
+- **delegations-by-delegator-and-validator delegator-addr validator-addr**
+
+Query all paginated Alliance delegations for a `delegator-addr` and `validator-addr`
+
+- **params**
+
+Query module parameters.
+
+- **rewards delegator-addr validator-addr denom**
+
+Query rewards generated for a specific Alliance by `delegator-addr`, `validator-addr`, and a `denom`.
+
+Governance:
+
+- **create-alliance denom rewards-weight take-rate**
+
+Create an Alliance with the specified parameters.
+
+- **update-alliance denom rewards-weight take-rate**
+
+Update an Alliance with the specified parameters.
+
+- **delete-alliance denom**
+
+Delete an Alliance with the specified denom. See Deleting an Alliance for more details.
