@@ -1,0 +1,16 @@
+---
+sidebar_position: 4
+---
+# How to use the Alliance Module
+
+Alliance can be integrated into both new and existing blockchains. It is an isolated module that doesn’t modify any existing CosmosSDK code. New blockchains can simply import the module and existing chains can perform a software upgrade.
+
+Chains that want to create an Alliance must enable the following modules:
+
+- [x/auth](https://github.com/cosmos/cosmos-sdk/blob/main/x/auth/README.md): retrieve information about internal blockchain accounts
+- [x/bank](https://github.com/cosmos/cosmos-sdk/blob/main/x/bank/README.md): mint, burn or send coins
+- [x/staking](https://github.com/cosmos/cosmos-sdk/blob/main/x/staking/README.md): bond, unbond, delegate tokens and hooks
+- [x/distribution](https://github.com/cosmos/cosmos-sdk/blob/main/x/distribution/README.md): withdraw rewards
+- [x/gov](https://github.com/cosmos/cosmos-sdk/blob/main/x/gov/README.md): create Alliances through governance
+
+Since Interchain Security is based on the IBC standard, the Alliance module has an indirect dependency on [x/ibc](https://github.com/cosmos/ibc-go#ibc-go) to bridge foreign tokens. Alliance allows any [ADR 024](https://github.com/cosmos/cosmos-sdk/blob/main/docs/architecture/adr-024-coin-metadata.md#adr-024-coin-metadata) compliant token to be staked as long as it has been whitelisted.
