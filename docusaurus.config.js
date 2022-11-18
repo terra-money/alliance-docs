@@ -84,7 +84,7 @@ module.exports = async function config() {
           respectPrefersColorScheme: true,
         },
         navbar: {
-          title: "Alliance Docs🤝",
+          title: "🤝 Alliance Docs",
           //logo: {
             //alt: "Enterprise Docs",
             //src: "img/logo_light.svg",
