@@ -1,0 +1,100 @@
+---
+sidebar_position: 2
+---
+# Alliance asset properties
+
+The Alliance module also supports bootstrapping an Alliance-enabled chain by adding the following Alliances to the `assets` list in the genesis file under the `Alliance` property.
+
+An Alliance asset consists of the following properties:
+
+<CH.Scrollycoding rows={20}>
+
+## Denom
+
+```go AllianceAsset mark=2
+type AllianceAsset struct {
+	Denom 			 string
+	RewardWeight 		 sdk.Dec 
+	TakeRate             sdk.Dec
+    TotalTokens          sdk.Int
+    TotalValidatorShares sdk.Dec
+    RewardStartTime      time.Time
+    RewardChangeRate	 sdk.Dec
+    RewardChangeInterval	 time.Duration                              
+}
+
+```
+
+The denomination of the Alliance asset. Assets can be either native or IBC. There can only be one Alliance asset for a unique denomination.
+
+---
+
+## RewardWeight
+
+```go AllianceAsset mark=3
+
+```
+
+The voting power weight of an Alliance asset. The native staking coin is assumed to have a reward weight of `1`. An alliance asset with a RewardWeight of `0.5` has half the voting power compared to native stakes. Alternatively, a RewardWeight of 5 has five times the voting power. See the [voting power section](../concepts/staking) for more information.
+
+---
+
+## TakeRate
+
+```go AllianceAsset mark=4
+
+```
+
+The rate at which the Alliance asset will be redistributed to all stakers as rewards at every interval determined by the module parameter `TakeRateClaimInterval`.
+
+---
+
+## TotalTokens
+
+```go AllianceAsset mark=5
+
+```
+
+The total number of Alliance assets that are currently staked.
+
+---
+
+## TotalValidatorShares
+
+```go AllianceAsset mark=6
+
+```
+
+The total amount of theoretical shares created used to keep track of assets ownership. Similar to share-accounting in the Cosmos x/staking module, this parameter is used to perform “lazy accounting” to reduce computational operations whenever tokens are slashed. See the section on [Delegation and Validator Shares](../concepts/delegation.mdx) for more information.
+
+---
+
+## RewardStartTime
+
+```go AllianceAsset mark=7
+
+```
+
+The time in which the Alliance asset starts to be allocated voting power and rewards. This is used to prevent early stakers from controlling too much of the voting power by providing a warm-up period that allows users to start staking. After this period, rewards and governance power start accruing to Alliance stakers.
+
+--- 
+
+## RewardChangeRate
+
+```go AllianceAsset mark=8
+
+```
+
+The rate at which the reward weight is scaled every interval. If the rate is less than `1`, the reward weight will tend toward `0`. 
+
+---
+
+## RewardChangeInterval
+
+```go AllianceAsset mark=9
+
+```
+
+Every `RewardChangeInterval`, the reward weight of the asset is scaled according to the `RewardDecayRate`.
+
+</CH.Scrollycoding>
