@@ -277,4 +277,49 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 
 }
 ```
+
+</CH.Scrollycoding>
+
+### Configuring the Bank Module
+
+Since the Alliance module mints and burns native staking tokens when rebalancing voting power, the Total Supply API needs to be updated to return accurate results. The custom wrapper only affects the following APIs: `/cosmos/bank/v1beta1/supply` & `/cosmos/bank/v1beta1/supply/by_denom`.
+
+<CH.Scrollycoding rows={20}>
+
+1. Update the imports to use a custom wrapper over the Bank module.
+
+```go app.go mark=8,9
+import (
+    ...
+    // Delete or comment the native bank module imports
+    // 	"github.com/cosmos/cosmos-sdk/x/bank"
+    // bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
+
+    // Replace the imports from the Alliance module
+    bank "github.com/terra-money/alliance/custom/bank"
+    bankkeeper "github.com/terra-money/alliance/custom/bank/keeper"
+    ...
+)
+
+```
+
+---
+
+2. Add a line to register the keepers that the custom Bank module needs
+
+```go app.go mark=12
+app.AllianceKeeper = alliancemodulekeeper.NewKeeper(
+    appCodec,
+    keys[alliancemoduletypes.StoreKey],
+    app.GetSubspace(alliancemoduletypes.ModuleName),
+    app.AccountKeeper,
+    app.BankKeeper,
+    &stakingKeeper,
+    app.DistrKeeper,
+)
+
+// Add this after instantiating the `Alliance keeper`
+app.BankKeeper.RegisterKeepers(app.AllianceKeeper, &stakingKeeper)
+```
+
 </CH.Scrollycoding>
