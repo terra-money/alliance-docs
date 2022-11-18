@@ -1,0 +1,30 @@
+---
+sidebar_position: 10
+---
+# Benchmarks
+
+Benchmarks were collected using a simulation app running 1000 blocks. The main computing bottlenecks are:
+
+1. Rebalancing voting weights during endblockers when voting power changes.
+    - This bottleneck scales mainly by number of bonded Alliance validators.
+2. Allocating take rate rewards to validators every begin block (default x/distribution behavior)
+    - This bottleneck scales mainly by number of assets with take rates.
+    - This event can be tuned by increasing take rate claim interval.
+
+The worst-case complexity of rebalancing voting weight scales by $O(nA)$, where n is the number of active Alliance validators, and A is the number of Alliance assets. In practice, rebalancing only updates bonded validators with staked Alliance assets. The following table shows the benchmark data as the number of Alliance assets and validators varies.
+
+|  |  | Validators (Average block time in seconds) |
+| --- | --- | --- |
+| Assets |  | 150 |
+| 1 | 0.01856 | 0.03456 |
+| 10 | 0.02194 | 0.04164 |
+| 80 | 0.05062 | 0.07966 |
+| 160 | 0.10378 | 0.3607 |
+| 320 | 0.63778 | 0.42728 |
+| 640 | 1.705 | 2.24968 |
+| 1280 | 4.26684 | 7.38552 |
+
+
+- These simulations were run on a MacBook Pro (M1 Pro Processor) with 32GB RAM. The numbers above are not reflective of actual block times. This simulation did not take into account the time to reach consensus.
+
+It is recommended to have less than 500 Alliance assets and less than 200 validators to reduce the blocktime overhead to under a second.
