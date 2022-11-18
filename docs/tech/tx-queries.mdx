@@ -4,66 +4,128 @@ title: Transactions and queries
 hide_title: false
 ---
 
-Users can interact with the Alliance module via **[gRPC](https://github.com/terra-money/alliance/blob/main/docs/static/openapi.yml)** or by using the set of subcommands from the Alliance module to **transact** and **query.** For simplicity, the binary and module names are not displayed in the following examples.
+Users can interact with the Alliance module via **[gRPC](https://github.com/terra-money/alliance/blob/main/docs/static/openapi.yml)** or by using the set of subcommands from the Alliance module to **transact** and **query.** 
 
 ## Transactions
 
-- **claim-rewards validator-addr denom:**
 
-Claim rewards from a delegation by specifying a denom and a validator address.
-
-- **delegate validator-addr amount**
+### Delegate
 
 Delegate an amount of liquid Alliance-enabled coins to a validator from your wallet.
 
-- **redelegate src-validator-addr dst-validator-addr amount**
+
+```go Tx
+tx alliance delegate <validator-addr> <amount>
+```
+
+### Redelegate
 
 Redelegate an amount of liquid Alliance-enabled coins from one validator to another from your wallet.
 
-- **undelegate validator-addr amount**
+```go Tx
+tx alliancr redelegate <src-validator-addr> <dst-validator-addr amount>
+```
+
+### Undelegate
+
 
 Undelegate an amount of liquid Alliance-enabled coins from a validator. These assets can be claimed after the unbonding period.
 
+```go Tx
+tx alliance undelegate <validator-addr> <amount>
+```
+
+### Claim rewards
+
+Claim rewards from a delegation by specifying a denom and a validator address.
+
+```go Tx
+tx alliance claim-rewards <validator-addr> <amount>
+```
+
+
 ## Queries 
+
+### Denom
 
 - **alliance denom**
 
 Query a specific Alliance by denom.
 
-- **alliances**
+```go Query
+
+```
+
+### Alliances
 
 Query paginated Alliances.
 
-- **delegation delegator-addr validator-addr denom**
+```go Query
+alliances
+```
+
+### Delegation
 
 Query a delegation to an Alliance by `delegator-addr`, `validator-addr`, and denom.
 
-- **delegations-by-delegator delegator-addr**
+```go Query
+delegation delegator-addr validator-addr denom
+```
+
+### Delegations
 
 Query all paginated Alliance delegations for a particular `delegator-addr`
 
-- **delegations-by-delegator-and-validator delegator-addr validator-addr**
+```go Query
+delegations-by-delegator delegator-addr
+```
+
+### Delegations validator
 
 Query all paginated Alliance delegations for a `delegator-addr` and `validator-addr`
 
-- **params**
+```go Query
+delegations-by-delegator-and-validator delegator-addr validator-addr
+```
+
+### Params
 
 Query module parameters.
 
-- **rewards delegator-addr validator-addr denom**
+```go Query
+params
+```
+
+### Rewards
 
 Query rewards generated for a specific Alliance by `delegator-addr`, `validator-addr`, and a `denom`.
 
-### Governance
+```go Query
+rewards delegator-addr validator-addr denom
+```
 
-- **create-alliance denom rewards-weight take-rate**
+## Governance
+
+### Create
 
 Create an Alliance with the specified parameters.
 
-- **update-alliance denom rewards-weight take-rate**
+```go Governance
+create-alliance denom rewards-weight take-rate
+```
+
+### Update
 
 Update an Alliance with the specified parameters.
 
-- **delete-alliance denom**
+```go Governance
+update-alliance denom rewards-weight take-rate
+```
+
+### Delete
 
 Delete an Alliance with the specified denom. [See Deleting an Alliance for more details](../guides/create.mdx#delete-an-alliance).
+
+```go Governance
+delete-alliance denom
+```
