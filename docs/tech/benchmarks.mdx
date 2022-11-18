@@ -1,6 +1,10 @@
 ---
 sidebar_position: 10
 ---
+
+import Admonition from '@theme/Admonition';
+
+
 # Benchmarks
 
 Benchmarks were collected using a simulation app running 1000 blocks. The main computing bottlenecks are:
@@ -25,6 +29,11 @@ The worst-case complexity of rebalancing voting weight scales by $O(nA)$, where 
 | 1280 | 4.26684 | 7.38552 |
 
 
-- These simulations were run on a MacBook Pro (M1 Pro Processor) with 32GB RAM. The numbers above are not reflective of actual block times. This simulation did not take into account the time to reach consensus.
+
+<Admonition type="info" title="Simulation results">
+
+These simulations were run on a MacBook Pro (M1 Pro Processor) with 32GB RAM. The numbers above are not reflective of actual block times. This simulation did not take into account the time to reach consensus.
+
+</Admonition>
 
 It is recommended to have less than 500 Alliance assets and less than 200 validators to reduce the blocktime overhead to under a second.
