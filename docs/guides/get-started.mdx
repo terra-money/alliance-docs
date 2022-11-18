@@ -33,7 +33,7 @@ The Alliance Module requires:
     - [x/distribution](https://github.com/cosmos/cosmos-sdk/blob/main/x/distribution/README.md)
     - [x/gov](https://github.com/cosmos/cosmos-sdk/blob/main/x/gov/README.md)
 
-### Configuring and Adding Alliance to a CosmosSDK Chain
+## Configuring and Adding Alliance to a CosmosSDK Chain
 
 
 <Admonition type="tip" title="Implementation example">
@@ -280,9 +280,9 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 
 </CH.Scrollycoding>
 
-### Configuring the Bank Module
+## Configuring the Bank Module
 
-Since the Alliance module mints and burns native staking tokens when rebalancing voting power, the Total Supply API needs to be updated to return accurate results. The custom wrapper only affects the following APIs: `/cosmos/bank/v1beta1/supply` & `/cosmos/bank/v1beta1/supply/by_denom`.
+Because the Alliance module mints and burns native staking tokens when rebalancing voting power, a chain's Total Supply API needs to be updated to return accurate results. This custom wrapper only affects the following APIs: `/cosmos/bank/v1beta1/supply` & `/cosmos/bank/v1beta1/supply/by_denom`. Follow these instructions to update your API for supply accuracy. 
 
 <CH.Scrollycoding rows={20}>
 
