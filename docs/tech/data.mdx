@@ -1,0 +1,16 @@
+---
+sidebar_position: 4
+---
+
+# Data Structures
+
+The Alliance module’s data structures are defined using the [Protocol Buffer language](https://developers.google.com/protocol-buffers/docs/proto3). These data structures can be found under the [proto/alliance folder](https://github.com/terra-money/alliance/tree/main/proto/alliance) in the module’s code repository.
+
+The following proto files refer to CosmosSDK standards:
+
+- **[genesis.proto](https://github.com/terra-money/alliance/blob/main/proto/alliance/genesis.proto)**: contains the data structure allowed by the module in the genesis file,
+- **[params.proto](https://github.com/terra-money/alliance/blob/main/proto/alliance/params.proto)**: data structures related to module parameters,
+- **[query.proto](https://github.com/terra-money/alliance/blob/main/proto/alliance/query.proto)**: data structures for the query entry points,
+- **[tx.proto](https://github.com/terra-money/alliance/blob/main/proto/alliance/tx.proto): data structures for transaction entry points.**
+
+The [alliance.proto](https://github.com/terra-money/alliance/blob/main/proto/alliance/alliance.proto) and [delegations.proto](https://github.com/terra-money/alliance/blob/main/proto/alliance/delegations.proto) files contain the Alliance module’s internally-used structures.
