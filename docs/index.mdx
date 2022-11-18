@@ -4,13 +4,13 @@ sidebar_position: 1
 
 # 🤝 Overview
 
-[Alliance](https://github.com/terra-money/alliance) is an open-source Cosmos SDK module that leverages interchain staking to form economic alliances among blockchains.
+Alliance is an [open-source Cosmos SDK module](https://github.com/terra-money/alliance) that leverages interchain staking to form economic alliances among blockchains.
 
 On a high level, Alliance allows arbitrary assets approved by governance, including [staking assets](./concepts/what-is.mdx#alliance-assets) bridged through an [IBC channel (ICS-004)](https://github.com/cosmos/ibc-go#ibc-go), to be delegated to validators and participate in block production and governance. [Voting power](./concepts/staking.mdx) and [block rewards](./concepts/rewards.mdx) are divided up among stakers of different assets according to a governance-determined ratio. 
 
 These assets are called [**Alliance assets**](./concepts/what-is.mdx#alliance-assets).
 
-Staking rewards of Alliance assets are traded with staking rewards of native assets, thereby forming an economic alliance among chains. For instance, suppose a chain *Example* that supports the Alliance module has two Alliance assets, a liquid staking derivative (LSD) for Luna and an LSD for ATOM. *Example* governance can set an [annual tax](./concepts/rewards.mdx) (could also be 0) on the staking yield for both Luna and ATOM LSDs, which is distributed to all *Example* stakers. *Example* governance can also set a [“reward ratio”](./concepts/staking.mdx) to each of the *Example* staking assets (LunaLSD, AtomLSD), which distributes the fees and inflation in accordance with said ratio every block. Note that the *Example* chain is trading staking rewards with those of larger, more liquid chains.
+Staking rewards of Alliance assets are traded with staking rewards of native assets, thereby forming an economic alliance among chains. For instance, suppose a chain *Example* that supports the Alliance module has two Alliance assets, a liquid staking derivative (LSD) for Luna and an LSD for ATOM. *Example* governance can set an [annual tax](./concepts/rewards.mdx#takerate) (could also be 0) on the staking yield for both Luna and ATOM LSDs, which is distributed to all *Example* stakers. *Example* governance can also set a [“reward ratio”](./concepts/staking.mdx) to each of the *Example* staking assets (LunaLSD, AtomLSD), which distributes the fees and inflation in accordance with said ratio every block. Note that the *Example* chain is trading staking rewards with those of larger, more liquid chains.
 
 - If the annual tax on Alliance asset LSDs are set at the staking yield of the supported Alliance assets, the primary motivation for forming the alliance is **economic**. The *Example* chain *pays* rewards of the native chain to attract the staking of foreign assets in the alliance, and *earns* staking rewards from foreign chains. *Example* staking becomes more interesting - rewards are paid in assets that are uncorrelated, less volatile, and more liquid.
 
