@@ -1,0 +1,69 @@
+---
+sidebar_position: 3
+title: Transactions and queries
+hide_title: false
+---
+
+Users can interact with the Alliance module via **[gRPC](https://github.com/terra-money/alliance/blob/main/docs/static/openapi.yml)** or by using the set of subcommands from the Alliance module to **transact** and **query.** For simplicity, the binary and module names are not displayed in the following examples.
+
+## Transactions
+
+- **claim-rewards validator-addr denom:**
+
+Claim rewards from a delegation by specifying a denom and a validator address.
+
+- **delegate validator-addr amount**
+
+Delegate an amount of liquid Alliance-enabled coins to a validator from your wallet.
+
+- **redelegate src-validator-addr dst-validator-addr amount**
+
+Redelegate an amount of liquid Alliance-enabled coins from one validator to another from your wallet.
+
+- **undelegate validator-addr amount**
+
+Undelegate an amount of liquid Alliance-enabled coins from a validator. These assets can be claimed after the unbonding period.
+
+## Queries 
+
+- **alliance denom**
+
+Query a specific Alliance by denom.
+
+- **alliances**
+
+Query paginated Alliances.
+
+- **delegation delegator-addr validator-addr denom**
+
+Query a delegation to an Alliance by `delegator-addr`, `validator-addr`, and denom.
+
+- **delegations-by-delegator delegator-addr**
+
+Query all paginated Alliance delegations for a particular `delegator-addr`
+
+- **delegations-by-delegator-and-validator delegator-addr validator-addr**
+
+Query all paginated Alliance delegations for a `delegator-addr` and `validator-addr`
+
+- **params**
+
+Query module parameters.
+
+- **rewards delegator-addr validator-addr denom**
+
+Query rewards generated for a specific Alliance by `delegator-addr`, `validator-addr`, and a `denom`.
+
+### Governance
+
+- **create-alliance denom rewards-weight take-rate**
+
+Create an Alliance with the specified parameters.
+
+- **update-alliance denom rewards-weight take-rate**
+
+Update an Alliance with the specified parameters.
+
+- **delete-alliance denom**
+
+Delete an Alliance with the specified denom. [See Deleting an Alliance for more details](../guides/create.mdx#delete-an-alliance).
