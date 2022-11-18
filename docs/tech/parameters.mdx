@@ -1,0 +1,44 @@
+---
+sidebar_position: 1
+---
+# Module Parameters
+
+The Alliance module has three parameters set at genesis or following a successful governance proposal. These parameters are critical for a well-functioning integration.
+
+## RewardDelayTime
+
+Defines the delay between the time an Alliance is created and the time users can earn rewards for their Alliance delegations.
+
+```go params.go
+RewardDelayTime
+
+Types: int64 (`time.Duration` in nanos)
+
+Default: 1 day
+```
+
+## TakeRateClaimInterval
+
+Interval of time on each EndBlocker when the module claims the take rate from all Alliance assets with a positive take rate.
+
+```go params.go
+TakeRateClaimInterval
+
+Types: int64 (`time.Duration` in nanos)
+
+Default: 5 mins
+```
+
+## LastTakeRateClaimTime
+
+Timestamp of the last successful attempt at claiming the `TakeRate` from Alliance assets. Used to determine when the next TakeRate claim can occur.
+
+```go params.go
+LastTakeRateClaimTime
+
+Types: int64 (`time.Time` in nanos)
+
+Default: Genesis timestamp
+```
+
+The Alliance module also supports bootstrapping an Alliance-enabled chain by adding Alliances to the [assets list](./asset.mdx) in the genesis file under the `Alliance` property.
