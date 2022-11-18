@@ -2,20 +2,24 @@
 sidebar_position: 5
 ---
 
+import Admonition from '@theme/Admonition';
+
 # State Transitions
 
-The Alliance module uses an **EndBlocker** which performs the following tasks at the end of every block.
+The Alliance module uses an [EndBlocker](https://docs.cosmos.network/v0.47/building-modules/beginblock-endblock) which performs the following tasks at the end of every block.
 
 - **Complete redelegations** by reading from the redelegations queue.
 - **Complete undelegations** by reading from the undelegations queue.
 - **redistribute rewards** based on the block time.
 - **rebalance the bonded tokens** if an `AssetRebalanceQueueKey` event has been produced.
 
-For more details on the EndBlocker, please refer to the x/alliance module code on [@terra-money/alliance](https://github.com/terra-money/alliance/blob/main/x/alliance/abci.go#L19-L32).
+For more details on the EndBlocker, please refer to the `x/alliance` module code on [@terra-money/alliance](https://github.com/terra-money/alliance/blob/main/x/alliance/abci.go#L19-L32).
 
 ## Delegate
 
-When a delegation occurs the Alliance coin, validator, and delegation objects are affected. The basic sequence is as follows.
+When a delegation occurs the Alliance coin, validator, and delegation objects are affected. 
+
+The basic delegation sequence is as follows.
 
 1. Check to see if the Alliance asset exists.
 2. If the Alliance exists, send the delegated coins to the Alliance module.
@@ -24,13 +28,13 @@ When a delegation occurs the Alliance coin, validator, and delegation objects ar
 5. Update the validator shares,
 6. Queue the rebalance assets event.
 
-For more details on delegation, visit the [Delegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go)
+Because the delegating sequence does not require rewards to be claimed, it is not called directly by the `EndBlocker`. Instead, delegations are set in the rebalance queue, which is then called by the `EndBlocker`. For more details on delegation, visit the [Delegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go). For more information on rebalancing, visit the [concepts section](../concepts/staking.mdx).
 
 ## Redelegate
 
 Redelegations affect the delegation, the source validator, and the destination validator.
 
-The basic sequence is as follows.
+The basic redelegation sequence is as follows.
 
 1. Check if the asset exists.
 2. Check if the delegation exists.
@@ -43,15 +47,15 @@ The basic sequence is as follows.
 9. Queue the redelegations to be executed based on the unbonding time.
 10. Queue the rebalance assets event.
 
-For more details on redelegation, visit the [Redelegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go)
+For more details on redelegation, visit the [Redelegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go). For more information on rebalancing, visit the [concepts section](../concepts/staking.mdx).
 
 ## Undelegate
 
-Undelegations affects the validator and the delegations pool
+Undelegations affects the validator and the delegations pool.
 
 The basic sequence is as follows.
 
-1. Check if the alliance exists.
+1. Check if the Alliance exists.
 2. Check if the account has delegations.
 3. Claim delegation rewards.
 4. Calculate how many shares need to be subtracted from the validator.
@@ -59,94 +63,112 @@ The basic sequence is as follows.
 6. Queue the undelegation to be executed based on the unbonding time.
 7. Queue the rebalance assets event.
 
-For more details on undelegating, visit the [Undelegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go)
+For more details on undelegating, visit the [Undelegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go).  For more information on rebalancing, visit the [concepts section](../concepts/staking.mdx).
 
 ## Queues
 
-Alliance module has three queues that are checked at the end of every block, along with the reward weight decay:
+The Alliance module has three queues that are checked at the end of every block, along with the reward weight decay:
 
-- **Redelegation:** iterate over the queue and delete all completed redelegations to enable the user redelegation again.
-- **Undelegation:** iterate over the queue and send coins from the Alliance module to the delegator’s account if the unbonding time has been completed,
-- **Reward Weight Decay: Iterate all mature events and update the reward weight for the Alliance asset.**
-- **Rebalance: works like a semaphore that is checked at the end of each block. If the value is true, it rebalances the assets from the different Alliance pools. This semaphore is enabled when a user Delegate, Undelegate, Redelegate, or when one of the following StakingHooks is triggered: AfterValidatorRemoved, AfterValidatorBonded, AfterValidatorBeginUnbonding, AfterDelegationModified or BeforeValidatorSlashed.**
+- **Redelegation**: Iterate over the queue and delete all completed redelegations to enable the user redelegation again.
+- **Undelegation**: Iterate over the queue and send coins from the Alliance module to the delegator’s account if the unbonding time has been completed,
+- **Rebalance**: Works like a semaphore that is checked at the end of each block. If the value is true, it rebalances the assets from the different Alliance pools. This semaphore is enabled when a user Delegates, Undelegates, or Redelegates, or when one of the following `StakingHooks` are triggered: 
+    - `AfterValidatorRemoved` 
+    - `AfterValidatorBonded`
+    - `AfterValidatorBeginUnbonding`
+    - `AfterDelegationModified`
+    - `BeforeValidatorSlashed`
+- **Reward Weight Decay**: Iterate all mature events and update the reward weight for the Alliance asset.
 
 ## Voting Power Rebalancing
 
-Voting power is rebalanced once every block whenever there is an event that triggers a voting power change.
+Voting power is rebalanced at the end of a block whenever the block contains an event that triggers a voting power change.
 
 The events events that trigger rebalancing are:
 
 - Native coin delegations and undelegations.
 - The slashing of a validator.
-- Alliance coin delegations, redelegations and undelegations.
+- Alliance coin delegations, redelegations, and undelegations.
 
-Note: because redelegating a native coin does not change the supply of the nativ coin, and because native voting power is always 1:1 with the staked amount, a redelegations of native assets does not triggera  rebalance.
+For more information on rebalancing, visit the [concepts section](../concepts/staking.mdx).
+
+<Admonition type="tip" title="Redelegating a native coin">
+
+Because redelegating a native coin does not change the supply of the native coin, and because the voting power of native coins is always equal with the staked amount, the redelegation of native assets does not trigger a rebalance of voting power.
+
+</Admonition>
 
 Whenever a rebalancing is requested, the following happens:
 
 1. If it is the end of the block:
 2. Consume the rebalancing request so that rebalancing does not stay queued.
 3. Query the amount of native coins that are bonded.
-4. Query the amount of native coins staked by the x/alliance module.
+4. Query the amount of native coins staked by the `x/alliance` module.
 5. Query the list of all validators with staked Alliance assets.
 6. Filter for validators that are bonded
+
 7. For each bonded validator:
-- Query the current amount of native coins that the x/alliance module staked with the validator. These coins represent the voting power of staked Alliance coins.
-1. For each Alliance asset:
-- Calculate the expected native coins (voting power) that the validator should have based on asset reward rate and amount of assets. This amount should be the rebalanced voting power, as it takes into account the changes made during the block.
-- Take the difference between the expected amount and the current amount of native coins staked. This is the amount that needs to be rebalanced.
-- If the expected amount is more than the current amount:
+    - Query the current amount of native coins that the `x/alliance` module staked with the validator. These coins represent the voting power of staked Alliance coins.
+
+8. For each Alliance asset:
+    - Calculate the expected native coins (voting power) that the validator should have based on the asset's reward weight and the amount of the asset. This amount should be the rebalanced voting power, as it takes into account the changes made during the block.
+    - Take the difference between the expected amount and the current amount of native coins staked. This is the amount that needs to be rebalanced.
+
+9. If the expected amount is more than the current amount:
     - Unbond the difference from the validator.
-    - Burn all leftover native coins that exists on the x/alliance module account.
-- If the expected amount is less than the current amount:
+    - Burn all leftover native coins that exists on the `x/alliance` module account.
+
+10. If the expected amount is less than the current amount:
     - Mint and delegate more native coins to the validator.
 
 ## Reward Calculation and Distribution
 
 ### Rewards Pool
 
-A new module account is introduced to store all rewards that have not been claimed by a delegator. When adding rewards to the pool for a given validator, the validator’s global reward histories data structure will be updated.
+A new module account is introduced to store all rewards that have not been claimed by a delegator. When adding rewards to the pool for a given validator, the validator’s global `RewardHistories` data structure will be updated.
+For more general information on rewards, visit the [rewards](../concepts/rewards.mdx) section. 
 
 ### Reward Histories
 
-The `RewardHistories` data structure is used to track the amount of rewards eligible for delegations and amount of rewards claimed by delegators without having to iterate through all delegations every block. `RewardHistories` track the rewards that a unit of voting power is eligible for.
+The `RewardHistories` data structure is used to track the amount of rewards eligible for delegations and the amount of rewards claimed by delegators without having to iterate through all delegations every block. `RewardHistories` track the rewards that a unit of voting power is eligible for.
 
 ### Reward Histories Snapshot
 
-Whenever Alliance asset reward weights are updated, a snapshot of the current reward history is taken. This snapshot is used to provide historical data to calculate the rewards due before and after the reward weight update. When calculating rewards, the snapshots are iterated to accumulate rewards. The entire logic for this process is documented in the `Claiming Delegation Rewards` section.
+Whenever the reward weights of Alliance assets are updated, a snapshot of the current reward history is taken. This snapshot is used to provide historical data to calculate the rewards due before and after the reward weight update. When calculating rewards, the snapshots are iterated to accumulate rewards. The entire logic for this process is documented in the [Claiming Delegation Rewards section](#claiming-delegation-rewards).
 
 ### Adding Assets to the Rewards Pool
 
-When assets are requested to be added to the rewards pool, the following occurs:
+When assets are requested to be added to the rewards pool, the following sequence occurs:
 
-1. Get the current asset weight of all delegations in the x/alliance module.
-    - This is calculated by summing all asset rewards weight * total amount.
-2. Query the latest RewardHistories for a validator.
+1. Get the current asset weight of all delegations in the `x/alliance` module.
+    - This is calculated by multiplying the asset amounts by the sum of their reward weights.
+2. Query the latest `RewardHistories` for a validator.
 3. For each asset added to the pool:
-    - Update the RewardHistories to account for the newly added assets.
+    - Update the `RewardHistories` to account for the newly added assets.
 4. Move the tokens from the source account into the `RewardsPool` module account.
 
-### Claiming Delegation Rewards**
+### Claiming Delegation Rewards
 
-When delegators claim rewards, the following occurs:
+When delegators claim rewards, the following sequence occurs:
 
-1. Initialize a totalRewards variable with zero.
+1. Initialize a `totalRewards` variable set to zero.
 2. Query all the relevant snapshots for the given validator.
 3. For each snapshot iterated by ascending blockheight:
-    - Compare the delegator’s `RewardHistories` to that of the snapshot’s records to determine how many rewards to claim.
+    - Compare the delegator’s `RewardHistories` the snapshot’s records to determine how many rewards to claim.
     - Accumulate the amount into totalRewards.
 4. Query the latest `RewardHistories` and compare the delegator’s values to determine how many rewards to claim.
 5. The delegator’s `RewardHistories` is then updated to match the global value to signify that the latest rewards have been claimed.
 6. Return totalRewards as the amount that a delegator can claim.
 
+For more information about rewards, visit the [rewards](../concepts/rewards.mdx) section. 
+
 ## Take Rate Deduction
 
-The `TakeRate` is deducted at an interval defined in the module parameters as `**Params**.**RewardClaimInterval`.** The previous time this deduction was executed is saved in `Params.LastRewardClaimTime`. During every endblock, the Alliance module will check to see if the current block time minus the LastRewardClaimeTime is greater than the RewardsClaimInterval.
+The `TakeRate` is deducted at an interval defined in the module parameters as `Params.RewardClaimInterval`. The previous time this deduction was executed is saved in `Params.LastRewardClaimTime`. During every endblock, the Alliance module will check to see if the current block time minus the `LastRewardClaimeTime` is greater than the `RewardsClaimInterval`.
 
-If true, it will apply the take rate to the assets and send the deducted tokens to the fee collector module account to be redistributed among stakers.
+If true, it will apply the `TakeRate` to the assets and send the deducted tokens to the fee collector module account to be redistributed among stakers. For more information about the `TakeRate`, visit the [rewards](../concepts/rewards.mdx) section. 
 
 ## Slashing
 
-Slashing is based on the **BeforeValidatorSlashed** hook from the Cosmos SDK’s **[StakingHooks](https://github.com/cosmos/cosmos-sdk/tree/main/x/staking#hooks)**. When the hook is executed, the Alliance module will subtract a [proportional amount of shares](https://github.com/cosmos/cosmos-sdk/tree/main/x/staking#delegator-shares) of each delegator from the slashed validators. **Undelegations** and **Redelegations** are affected by the slashing event if they are not completed before the block time of the slashing event. After the slashing is completed, an asset rebalance event is queued.
+Slashing is based on the `BeforeValidatorSlashed` hook from the Cosmos SDK’s [StakingHooks](https://github.com/cosmos/cosmos-sdk/tree/main/x/staking#hooks). When the hook is executed, the Alliance module will subtract a [proportional amount of shares](https://github.com/cosmos/cosmos-sdk/tree/main/x/staking#delegator-shares) of each delegator from the slashed validators. Undelegations and redelegations are affected by the slashing event if they are not completed before the block time of the slashing event. After the slashing is completed, an asset rebalance event is queued.
 
-Alliance coins slashed from validators are redistributed among the rest of the validators.
+Alliance coins slashed from validators are redistributed among the rest of the validators. For more on validator shares, visit the [Delegations and validator shares](../concepts/delegation.mdx) section
