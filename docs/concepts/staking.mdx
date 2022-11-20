@@ -2,14 +2,16 @@
 sidebar_position: 2
 ---
 
+import Admonition from '@theme/Admonition';
+
+
 # Voting power and staking
 
 Alliances assets can be added to new chains prior to genesis. In order to add an Alliance asset to an existing chain, you’ll need to specify the asset’s parameters and create a governance proposal. Visit the [integration guide](../guides/create.mdx) for more information on adding an Alliance asset.
 
 ## RewardWeight and voting power
 
-To preserve the role of a native staking asset and to prevent the power dilution of a chain's native assets, each Alliance asset added to a chain is given a  `RewardWeight`. This parameter determines how much voting power a new Alliance asset has in proportion to the natively staked token. A chain’s native staking asset always maintains a reward weight of `1`.
-
+To preserve the role of a native staking asset and to prevent the power dilution of a chain's native assets, each Alliance asset added to a chain is given a  `RewardWeight`. This parameter determines how much consensus voting power a new Alliance asset has in proportion to the natively staked token. A chain’s native staking asset always maintains a reward weight of `1`. 
 
 ![](/img/alliance/voting-power.png)
 
@@ -30,13 +32,21 @@ The following illustration demonstrates the voting power of different assets rel
 
 ### RewardDelayTime
 
-In addition to the `RewardWeight` parameter, new Alliances can also specify a `RewardDelayTime`. This parameter defines the amount of time users have to stake their new Alliance assets before the voting power of the new asset is applied to the chain. This delay prevents early stakers from gaining outsized voting power with a relatively small total stake of a new Alliance asset. The default setting for this parameter is one week.
+In addition to the `RewardWeight` parameter, new Alliances can also specify a `RewardDelayTime`. This parameter defines the amount of time users have to stake their new Alliance assets before the voting power of the new asset is applied to the chain. This delay prevents early stakers from gaining outsized rewards with a relatively small total stake of a new Alliance asset. The default setting for this parameter is one week.
 
 ## Staking
 
-The Alliance module does not require changes to any native modules. To users, staking an Alliance asset is no different than staking a native asset. They can stake, unstake, redelegate, vote, or earn rewards with an Alliance asset just like they can when staking a native asset. All the underlying logic behind Alliance assets is fully contained within the `x/alliance` module, which works in tandem with the other Cosmos modules.
+The Alliance module does not require changes to any native modules. To users, staking an Alliance asset is as seamless as staking a native asset. The only difference is that delegators cannot use Alliance assets to participate directly in governance. Delegators can stake, unstake, redelegate, or earn rewards with an Alliance asset just like they can when staking a native asset. All the underlying logic behind Alliance assets is fully contained within the `x/alliance` module, which works in tandem with the other Cosmos modules.
 
 Cosmos chains are built to only have one native staking asset. In order to preserve the functionality of Cosmos-SDK modules, the Alliance module does not stake Alliance assets directly to validators. Instead, the module keeps track of all Alliance asset staking accounts, and mints a proportional amount of native tokens. These tokens are then staked to a validator on behalf of a delegator. Whenever Alliance assets are staked, unstaked, or redelegated, the Alliance module performs all these actions in the background using the chain’s native asset, minting or burning as needed to ensure staking amounts are always current. This method of staking ensures compatibility with Cosmos-SDK chains, and does not require any changes to existing Cosmos modules. The Alliance module account owns all delegations in custody of stakers and keeps a record of all staked assets. Native stakers use the `x/staking` module to stake their assets, and Alliance assets are staked using the `x/alliance` module.
+
+<Admonition type="tip" icon="✅"title="Alliance assets and governance">
+
+Although the term "voting power" is used to describe consensus and staking power for validators, delegators cannot vote on governance proposals using staked Alliance assets. The native coins minted by the Alliance module that represent the power of Alliance assets are owned solely by the Alliance module, and therefore cannot be used by delegators to specify votes. 
+
+Alliance delegators do not participate directly in governance; however, their underlying staked native assets are still used in consensus and governance by validators. In the Cosmos governance process, validators vote with their entire stake, including the staked native assets owned by the Alliance module. This process is called [inheritance](https://docs.cosmos.network/main/modules/gov#inheritance).
+
+</Admonition>
 
 ## Rebalancing
 
@@ -50,7 +60,7 @@ To conserve computing resources, rebalancing only occurs when there is a change 
 
 ### Voting power rebalance
 
-Rebalancing is calculated using a proportion of each Alliance asset’s voting power, specified by the asset’s `RewardWeight`. In governance, one staked native coin is equal to one vote. Therefore, the total voting power of staked Alliance assets must be proportional to the number of native coins staked. If an Alliance asset has a reward weight of `1`, the total voting power of the Alliance asset’s staked supply is always equal to the number of staked native coins, regardless of the Alliance asset’s supply. 
+Rebalancing is calculated using a proportion of each Alliance asset’s voting power, specified by the asset’s `RewardWeight`. In consensus, one staked native coin is equal to one vote. Therefore, the total voting power of staked Alliance assets must be proportional to the number of native coins staked. If an Alliance asset has a reward weight of `1`, the total voting power of the Alliance asset’s staked supply is always equal to the number of staked native coins, regardless of the Alliance asset’s supply. 
 
 The following example illustrates the rebalancing of voting power when the staked supply of the native token changes. This example shows staking pools as total amounts across all validators. Note that the voting power proportions set by the reward weight must always be constant with the supply of the native staked asset, regardless of the supply change of Alliance assets.
 
