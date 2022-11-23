@@ -1,0 +1,42 @@
+---
+sidebar_position: 4
+title: Join the testnet
+hide_title: false
+---
+
+import Admonition from '@theme/Admonition';
+
+This testnet uses [Alliance v0.0.1-beta1](https://github.com/terra-money/alliance/releases/tag/v0.0.1-beta1) and [CosmosSDK 0.46.3](https://github.com/cosmos/cosmos-sdk/releases/tag/v0.46.3). 
+
+## 1. Download or compile Alliance
+
+To join the testnet, download the binary or compile the source code from the [v0.0.1-beta1 tag of the Alliance repository](https://github.com/terra-money/alliance/releases/tag/v0.0.1-beta1).
+
+<Admonition type="tip" title="Install ignite">
+
+To compile the code, install [Ignite Cli v0.25.1](https://docs.ignite.com/guide/install) and use the following command:
+
+```sh Ignite
+ignite chain build
+```
+
+</Admonition>
+
+## 2. Join the testnet
+
+Joining the Alliance testnet follows the same process as other CosmosSDK testnets. Terra has a very well-defined guide on how to [join a testnet](https://docs.terra.money/full-node/manage-a-terra-validator/). 
+
+If you use the [Terra testnet guide](https://docs.terra.money/full-node/manage-a-terra-validator/) you must:
+
+- Use _`allianced`_ instead of _`terrad`_ commands.
+- Use the following peers: [http://3.75.187.158:26657/net_info](http://3.75.187.158:26657/net_info) .
+- Use the following genesis state: [http://3.75.187.158:26657/genesis?](http://3.75.187.158:26657/genesis?) .
+- Use the [faucet to request testnet funds](http://3.75.187.158) to be able to submit transactions and create the validator 
+
+<Admonition type="tip" title="Request tokens">
+
+    If you need more tokens, visit the [Terra Validators Discord and request tokens for the Alliance testnet](https://discord.gg/Bj4NpaqKWb).
+
+</Admonition>
+
+
