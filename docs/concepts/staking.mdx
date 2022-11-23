@@ -40,11 +40,13 @@ The Alliance module does not require changes to any native modules. To users, st
 
 Cosmos chains are built to only have one native staking asset. In order to preserve the functionality of Cosmos-SDK modules, the Alliance module does not stake Alliance assets directly to validators. Instead, the module keeps track of all Alliance asset staking accounts, and mints a proportional amount of native tokens. These tokens are then staked to a validator on behalf of a delegator. Whenever Alliance assets are staked, unstaked, or redelegated, the Alliance module performs all these actions in the background using the chain’s native asset, minting or burning as needed to ensure staking amounts are always current. This method of staking ensures compatibility with Cosmos-SDK chains, and does not require any changes to existing Cosmos modules. The Alliance module account owns all delegations in custody of stakers and keeps a record of all staked assets. Native stakers use the `x/staking` module to stake their assets, and Alliance assets are staked using the `x/alliance` module.
 
-<Admonition type="tip" icon="✅"title="Alliance assets and governance">
+<Admonition type="tip" icon="✅" title="Alliance assets and governance">
 
 Although the term "voting power" is used to describe consensus and staking power for validators, delegators cannot vote on governance proposals using staked Alliance assets. The native coins minted by the Alliance module that represent the power of Alliance assets are owned solely by the Alliance module, and therefore cannot be used by delegators to specify votes. 
 
 Alliance delegators do not participate directly in governance; however, their underlying staked native assets are still used in consensus and governance by validators. In the Cosmos governance process, validators vote with their entire stake, including the staked native assets owned by the Alliance module. This process is called [inheritance](https://docs.cosmos.network/main/modules/gov#inheritance).
+
+**Native delegators that stake native assets directly to validators can always specify votes with their staked native coins on a 1 coin = 1 vote basis.**
 
 </Admonition>
 
@@ -58,7 +60,7 @@ The following example shows how the Alliance module stakes native assets on beha
 
 To conserve computing resources, rebalancing only occurs when there is a change in delegations, at most once at the end of a block. If there is any change in delegations during a block, the Alliance module will update its staking proportions to ensure that validator delegations reflect the state of staked assets. For more information on the rebalancing process, visit the [State transitions page](../tech/transitions.mdx).
 
-### Voting power rebalance
+### Voting power rebalancing
 
 Rebalancing is calculated using a proportion of each Alliance asset’s voting power, specified by the asset’s `RewardWeight`. In consensus, one staked native coin is equal to one vote. Therefore, the total voting power of staked Alliance assets must be proportional to the number of native coins staked. If an Alliance asset has a reward weight of `1`, the total voting power of the Alliance asset’s staked supply is always equal to the number of staked native coins, regardless of the Alliance asset’s supply. 
 
