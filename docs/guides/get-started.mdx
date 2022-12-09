@@ -1,6 +1,5 @@
 ---
 sidebar_position: 1
-hide_table_of_contents: true
 ---
 
 import Admonition from '@theme/Admonition';
@@ -42,10 +41,6 @@ Refer to the [example pull request](https://github.com/terra-money/andromeda-ora
 
 </Admonition>
 
-<CH.Scrollycoding rows={20}>
-
-
-
 1. Add the Alliance package to the _`go.mod`_ file with the [latest released version](https://github.com/terra-money/alliance/tags) and install it.
 
 ```go go.mod
@@ -57,7 +52,7 @@ require (
 
 ```
 
----
+
 
 2. Add the following modules to _`app.go`_ 
 
@@ -68,7 +63,7 @@ alliancemodulekeeper "github.com/terra-money/alliance/x/alliance/keeper"
 alliancemoduletypes "github.com/terra-money/alliance/x/alliance/types"
 ```
 
----
+
 
 3. Register the AllianceKeeper in _`App struct`_.
 
@@ -80,7 +75,7 @@ type App struct {
 }
 ```
 
----
+
 
 4. Add the Alliance module into the BasicManager instantiation.
 
@@ -93,11 +88,11 @@ ModuleBasics = module.NewBasicManager(
 )
 ```
 
----
+
 
 5. Add the Alliance module to the app. The Alliance module needs to be specified after the _`stakingKeeper`_ is instantiated.
 
-```go app.go
+```go app.go focus=5:20
 ...
 
 stakingKeeper := stakingkeeper.NewKeeper(
@@ -121,7 +116,7 @@ app.AllianceKeeper = alliancemodulekeeper.NewKeeper(
 )
 ```
 
----
+
 
 6. Add the Alliance staking hooks to _`app.StakingKeeper`_.
 
@@ -134,7 +129,7 @@ app.StakingKeeper = *stakingKeeper.SetHooks(
 
 ```
 
----
+
 
 7. Add the requisite Alliance module types to the module account permissions.
 
@@ -154,7 +149,7 @@ maccPerms = map[string][]string{
 
 ```
 
----
+
 
 8. Add the alliance storekey to the KVStore.
 
@@ -166,7 +161,7 @@ alliancemoduletypes.StoreKey,
 )
 ```
 
----
+
 
 9. Add the Alliance module to the app manager and simulation manager instantiations.
 
@@ -186,7 +181,7 @@ app.sm = module.NewSimulationManager(
 )
 ```
 
----
+
 
 10. Add the module as the final element to the following:
 -  _`SetOrderBeginBlockers`_
@@ -211,7 +206,7 @@ app.mm.SetOrderInitGenesis(
 )
 ```
 
----
+
 
 11. Add the Alliance proposal handler route to the governance module.
 
@@ -226,7 +221,7 @@ govRouter.
 
     AddRoute(alliancemoduletypes.RouterKey, alliancemodule.NewAllianceProposalHandler(app.AllianceKeeper))
 ```
----
+
 
 12. Add the governance proposal handlers.
 
@@ -246,7 +241,7 @@ govProposalHandlers = append(govProposalHandlers,
 )
 ```
 
----
+
 
 13. Block the module account address.
 
@@ -262,7 +257,7 @@ func (app *App) BlockedModuleAccountAddrs() map[string]bool {
 }
 ```
 
----
+
 
 14. Add the init params keepers.
 
@@ -278,13 +273,13 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 }
 ```
 
-</CH.Scrollycoding>
+
 
 ## Configuring the Bank Module
 
 Because the Alliance module mints and burns native staking tokens when rebalancing voting power, a chain's Total Supply API needs to be updated to return accurate results. This custom wrapper only affects the following APIs: `/cosmos/bank/v1beta1/supply` & `/cosmos/bank/v1beta1/supply/by_denom`. Follow these instructions to update your API for supply accuracy. 
 
-<CH.Scrollycoding rows={20}>
+
 
 1. Update the imports to use a custom wrapper over the Bank module.
 
@@ -303,7 +298,7 @@ import (
 
 ```
 
----
+
 
 2. Add a line to register the keepers that the custom Bank module needs
 
@@ -322,4 +317,4 @@ app.AllianceKeeper = alliancemodulekeeper.NewKeeper(
 app.BankKeeper.RegisterKeepers(app.AllianceKeeper, &stakingKeeper)
 ```
 
-</CH.Scrollycoding>
+
