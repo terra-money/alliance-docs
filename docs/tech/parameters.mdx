@@ -7,7 +7,7 @@ The Alliance module has three parameters set at genesis or following a successfu
 
 <CH.Scrollycoding rows="focus">
 
-## RewardDelayTime
+## RewardDelay<wbr />Time
 
 Defines the delay between the time an Alliance is created and the time users can earn rewards for their Alliance delegations.
 
@@ -20,12 +20,12 @@ Default: 1 day
 ```
 ---
 
-## TakeRateClaimInterval
+## TakeRate<wbr />ClaimInterval
 
-Interval of time on each EndBlocker when the module claims the take rate from all Alliance assets with a positive take rate. For more information on the `TakeRate`, visit the [rewards page](../concepts/rewards.mdx). 
+The interval of time on each EndBlocker when the module claims the take rate from all Alliance assets with a positive take rate. For more information on the `TakeRate`, visit the [rewards page](../concepts/rewards.mdx). 
 
 ```go params.go
-TakeRateClaimInterval
+TakeRate ClaimInterval
 
 Types: int64 (`time.Duration` in nanos)
 
@@ -34,9 +34,9 @@ Default: 5 mins
 
 ---
 
-## LastTakeRateClaimTime
+## Last<wbr />TakeRate<wbr />ClaimTime
 
-Timestamp of the last successful attempt at claiming the `TakeRate` from Alliance assets. Used to determine when the next TakeRate claim can occur.
+The timestamp of the last successful attempt at claiming the `TakeRate` from Alliance assets. This timestamp Used to determine when the next TakeRate claim can occur.
 
 ```go params.go
 LastTakeRateClaimTime
