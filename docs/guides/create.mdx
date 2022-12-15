@@ -13,7 +13,7 @@ Transactions that affect Alliances can only be executed via the governance modul
 Creating an Alliance uses the `/alliance.alliance.MsgCreateAllianceProposal` type. This proposal type describes the `Alliance` attribute with the following properties:
 
 - **Denom**: The address of the Alliance asset that the community wants to whitelist.
-- [**RewardWeight**](../concepts/staking.mdx): Specifies the ratio of rewards and voting power given to each Alliance asset. It does not need to sum to 1 (rate = weight / total_weight). 
+- [**RewardWeight**](../concepts/staking.mdx): Specifies the ratio of rewards and voting power given to each Alliance asset. It does not need to sum to 1 ($ratio = \frac{asset\_weight}{sum\_of\_total\_weight}$). 
 - [**TakeRate**](../concepts/rewards.mdx): Defines an annualized reward rate that will be redirected to the distribution rewards pool. Used for liquid staking derivatives.
 - **Title**: The name of governance proposal.
 - **Description**: A description of governance proposal.
