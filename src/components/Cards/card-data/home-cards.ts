@@ -2,46 +2,46 @@ import { CardProps } from '../Card';
 
 const homeCards: CardProps[] = [
   {
-    href: '/develop/get-started.html',
-    lightSVG: '/img/icons/buildanapp02.svg',
-    darkSVG: '/img/icons/dark/buildanapp02.svg',
-    header: 'Start building',
-    summary: 'Click here to learn how to build on Terra.'
+    href: '/overview',
+    lightSVG: '/img/icons/hackathon-1.svg',
+    darkSVG: '/img/icons/dark/hackathon-1.svg',
+    header: 'Overview',
+    summary: 'Discover the Alliance module.'
   },
   {
-    href: '/learn/terra-station.html',
-    lightSVG: '/img/icons/station/station.svg',
-    darkSVG: '/img/icons/dark/station.svg',
-    header: 'Get started with Station',
-    summary: 'Create a wallet and stake Luna for rewards.'
+    href: '/concepts/what-is',
+    lightSVG: '/img/icons/core/evidence.svg',
+    darkSVG: '/img/icons/dark/evidence.svg',
+    header: 'How it works',
+    summary: 'Learn about Alliances and assets.'
   },
   {
-    href: '/develop/which-tools.html',
+    href: '/concepts/staking',
+    lightSVG: '/img/icons/station/stake.svg',
+    darkSVG: '/img/icons/dark/stake.svg',
+    header: 'Alliance staking',
+    summary: 'Learn about staking and rewards.'
+  },
+  {
+    href: '/guides/get-started',
     lightSVG: '/img/icons/buildanapp01.svg',
     darkSVG: '/img/icons/dark/buildanapp01.svg',
-    header: 'Tool guide',
-    summary: 'Not sure which tools to use? Start here.'
+    header: 'Integration guide',
+    summary: 'Learn how to add Alliance to your chain.'
   },
   {
-    href: '/develop/terrain/mint-an-nft.html',
-    lightSVG: '/img/icons/mintnft.svg',
-    darkSVG: '/img/icons/dark/mintnft.svg',
-    header: 'Mint an NFT',
-    summary: 'Follow the minting tutorial to mint your own NFT.'
+    href: '/guides/join-the-testnet',
+    lightSVG: '/img/icons/testnet.svg',
+    darkSVG: '/img/icons/dark/testnet.svg',
+    header: 'Join the testnet',
+    summary: 'Create your own Alliance testing chain.'
   },
   {
-    href: '/learn/protocol.html',
-    lightSVG: '/img/icons/terra.svg',
-    darkSVG: '/img/icons/dark/terra.svg',
-    header: 'Learn about Terra',
-    summary: 'Learn about Luna, rewards, staking, and governance.'
-  },
-  {
-    href: '/migration-guides.html',
-    lightSVG: '/img/icons/swap-1.svg',
-    darkSVG: '/img/icons/dark/swap-1.svg',
-    header: 'Terra migration guides',
-    summary: 'Move from Terra Classic to the new Terra chain.'
+    href: '/tech/parameters',
+    lightSVG: '/img/icons/core/params.svg',
+    darkSVG: '/img/icons/dark/params.svg',
+    header: 'Module Parameters',
+    summary: 'Dive deep into the Alliance module specifications.'
   },
 ]
 
