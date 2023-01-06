@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## TakeRate
 
-The `TakeRate` parameter of an Alliance asset allows a chain to request payments from an Allied chain. The `TakeRate` is the rate that redistributes a portion of the staked Alliance asset to all stakers. When paired with a Liquid Staking Derivative (LSD), this property allows established chains to pay for newer chains using the asset’s native inflation. This process allows for greater competition between established chains to provide security for new promising blockchains. For more information on Alliance asset parameters, visit the [properties page](../tech/asset.mdx). 
+When adding a new Alliance coin, a `TakeRate` can be defined. The `TakeRate` allows a chain to request for payments from an allied chain. The `TakeRate` is an annualized rate that redistributes a portion of staked Alliance coin to all stakers on-chain. When paired with a Liquid Staking Derivative (LSD), this property allows host chains to pay Alliance chains using their native inflation, opening up more opportunities for better competition between chains to provide economic security for new blockchains. For more information on Alliance asset parameters, visit the [properties page](../tech/asset.mdx). 
 
 The `TakeRate` is defined as a decimal percentage per year. The interval by which this rate is claimed is determined by the module parameter `TakeRateClaimInterval`. When executed, the `TakeRate` amount is deducted from an Alliance asset’s staking pool and deposited into the reward pool, to be distributed to validators and delegators.
 
