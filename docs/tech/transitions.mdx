@@ -51,7 +51,7 @@ For more details on redelegation, visit the [Redelegate function from delegation
 
 ## Undelegate
 
-Undelegations affects the validator and the delegations pool.
+Undelegations affect the validator and the delegations pool.
 
 The basic sequence is as follows.
 
@@ -83,7 +83,7 @@ The Alliance module has three queues that are checked at the end of every block,
 
 Voting power is rebalanced at the end of a block whenever the block contains an event that triggers a voting power change.
 
-The events events that trigger rebalancing are:
+The events that trigger rebalancing are:
 
 - Native coin delegations and undelegations.
 - The slashing of a validator.
@@ -115,7 +115,7 @@ Whenever a rebalancing is requested, the following happens:
 
 9. If the expected amount is more than the current amount:
     - Unbond the difference from the validator.
-    - Burn all leftover native coins that exists on the `x/alliance` module account.
+    - Burn all leftover native coins that exist on the `x/alliance` module account.
 
 10. If the expected amount is less than the current amount:
     - Mint and delegate more native coins to the validator.
@@ -153,7 +153,7 @@ When delegators claim rewards, the following sequence occurs:
 1. Initialize a `totalRewards` variable set to zero.
 2. Query all the relevant snapshots for the given validator.
 3. For each snapshot iterated by ascending blockheight:
-    - Compare the delegator’s `RewardHistories` the snapshot’s records to determine how many rewards to claim.
+    - Compare the delegator’s `RewardHistories` with the snapshot’s records to determine how many rewards to claim.
     - Accumulate the amount into totalRewards.
 4. Query the latest `RewardHistories` and compare the delegator’s values to determine how many rewards to claim.
 5. The delegator’s `RewardHistories` is then updated to match the global value to signify that the latest rewards have been claimed.
