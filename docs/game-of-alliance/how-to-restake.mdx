@@ -1,0 +1,41 @@
+---
+sidebar_position: 2
+---
+
+import Admonition from '@theme/Admonition';
+
+# Undelegating and restaking
+
+If you would like to undelegate your tokens from one alliance and stake them in an alliance on another chain, you will first need to transfer them to the Terra chain. Referring to the diagram below, if we want to move from Chain 1 to Chain 3 in testnet, we will first need to transfer tokens from Chain 1 to Terra testnet (Pisco-1) then from Terra testnet (Pisco-1) to Chain 3.
+
+<img className="readme-img-sm" src="/img/user-guide/restaking.png" />
+
+In this example, we will walk through the steps of transferring 1 fOSMO, which will be staked to the Ordos chain, to the Corrino chain.
+
+1. From the [Game of Alliance staking page](https://game-of-alliance.pages.dev/staking) click the `MANAGE` button next to the validator with which you had originally staked your tokens. Be sure to select the blockchain and asset corresponding to your original stake at the top of the page.
+
+<img className="readme-img-md" src="/img/user-guide/manage-undelegate.png" />
+
+2. Undelegate the asset that you want to transfer to another alliance.
+
+<img className="readme-img-sm" src="/img/user-guide/undelegate.png" />
+
+<Admonition type="info" icon="ℹ️" title="Unbonding period">
+
+The current unbonding period is 1 hour. After unbonding, you may wish to work on something else while your tokens unbond.
+
+</Admonition>
+
+3. After waiting one hour, navigate to the Station extension and click on transfer.
+
+<img className="readme-img-sm" src="/img/user-guide/transfer_extension.png" />
+
+4. Transfer the asset to the Terra chain from the origin chain. In this example, we will transfer the 1 fOSMO we just unbonded on the Ordos chain to the Terra chain.
+
+<img className="readme-img-sm" src="/img/user-guide/transfer_to_terra.png" />
+
+5. After waiting for the transfer to complete, you can then transfer the amount from the Terra chain to the preferred destination chain. In this case, we will send the 1 fOSMO we received from the Ordos chain to the Corrino chain.
+
+<img className="readme-img-sm" src="/img/user-guide/transfer_to_corrino.png" />
+
+6. Now, you can navigate to the [Game of Alliance staking page](https://game-of-alliance.pages.dev/staking) to delegate. You can refer to the [Delegate tokens to your preferred Alliance](./how-to-stake#delegate-tokens-to-your-preferred-alliance) section to follow the steps to stake your asset.

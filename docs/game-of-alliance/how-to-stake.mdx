@@ -4,13 +4,13 @@ sidebar_position: 1
 
 import Admonition from '@theme/Admonition';
 
-# User Guide: Interchain Staking with Alliance
+# Interchain staking with Alliance
 
 In this tutorial, you will learn how to transfer your assets from one chain to another and use those funds in order to stake to a validator on the new chain.
 
 ## Create a new Station wallet
 
-Make sure that you have the newest version of the Station extension and create a new wallet to follow along with this tutorial.
+Follow the [Station extention guide](https://docs.terra.money/learn/station/download/station-extension) to make sure that you have the newest version of the Station extension and create a new wallet to follow along with this tutorial.
 
 ## Switch to testnet
 
@@ -26,7 +26,9 @@ Make sure that you have the newest version of the Station extension and create a
 
 1. Navigate to the [Game of Alliance](https://game-of-alliance.pages.dev/faucet) faucet.
 
-2. Connect your Station wallet.
+<img className="readme-img-md" src="/img/user-guide/goa_faucet.png" />
+
+2. Connect your Station wallet by clicking the `CONNECT` button in the upper-right corner of the screen.
 
 <img className="readme-img-sm" src="/img/user-guide/connect_wallet.png" />
 
@@ -104,33 +106,3 @@ When the transaction has finalized, you should be able to view the fOSMO amounts
 <img className="readme-img-sm" src="/img/user-guide/sign_transaction.png" />
 
 Congratulations, you have just formed your first Alliance! From here, you will start to accrue rewards from the validator to which you had chosen to delegate. Once you earn a sufficient amount of rewards, you can click on the `CLAIM REWARDS` button in the upper right-hand corner of the Validators section to claim them.
-
-## Undelegating and restaking
-
-If you would like to undelegate your tokens from one alliance and stake them in an alliance on another chain, you will first need to transfer them to Terra. Referring to the diagram below, if we want to move from Chain 1 to Chain 3 in testnet, we will first need to transfer tokens from Chain 1 to Terra (Pisco-1) then from Terra (Pisco-1) to Chain3.
-
-<img className="readme-img-sm" src="/img/user-guide/restaking.png" />
-
-In this example, we will walk through the steps of transferring some fOSMO, which we staked to an Alliance on the Ordos chain in previous steps, to the Alliance chain. From there, you can follow the [Delegate tokens to your preferred Alliance](#delegate-tokens-to-your-preferred-alliance) steps to redelegate to the new chain.
-
-1. From the [Game of Alliance staking page](https://game-of-alliance.pages.dev/staking) click the `MANAGE` button next to the validator with which you had originally staked your tokens.
-
-2. Unbond the asset that you want to transfer to another alliance.
-
-<img className="readme-img-sm" src="/img/user-guide/undelegate.png" />
-
-<Admonition type="info" icon="ℹ️" title="Unbonding period">
-
-The current unbonding period is 1 hour. After unbonding, you may wish to work on something else while your tokens unbond.
-
-</Admonition>
-
-3. After waiting one hour, you should transfer that asset to the Terra chain from the origin chain.
-
-<img className="readme-img-sm" src="/img/user-guide/transfer_to_terra.png" />
-
-4. After waiting for the transfer to complete, you can then transfer the amount from the Terra chain to the preferred destination chain. In this case, we will send the 1 fOSMO we received on the Terra chain from the Ordos chain to the Corrino chain.
-
-<img className="readme-img-sm" src="/img/user-guide/transfer_to_corrino.png" />
-
-5. Now, you can navigate to the [Game of Alliance staking page](https://game-of-alliance.pages.dev/staking) to delegate. refer to the [Delegate tokens to your preferred Alliance](#delegate-tokens-to-your-preferred-alliance) section to follow the steps to stake your asset.
