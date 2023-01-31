@@ -1,0 +1,23 @@
+---
+sidebar_position: 3
+---
+
+# Rewards
+
+## TakeRate
+
+When adding a new Alliance coin, a `TakeRate` can be defined. The `TakeRate` allows a chain to request for payments from an allied chain. The `TakeRate` is an annualized rate that redistributes a portion of staked Alliance coin to all stakers on-chain. When paired with a Liquid Staking Derivative (LSD), this property allows host chains to pay Alliance chains using their native inflation, opening up more opportunities for better competition between chains to provide economic security for new blockchains. For more information on Alliance asset parameters, visit the [properties page](../tech/asset.mdx). 
+
+The `TakeRate` is defined as a decimal percentage per year. The interval by which this rate is claimed is determined by the module parameter `TakeRateClaimInterval`. When executed, the `TakeRate` amount is deducted from an Alliance asset’s staking pool and deposited into the reward pool, to be distributed to validators and delegators.
+
+## Rewards Distribution
+
+Rewards for staking come from three sources:
+
+- Native inflation: inflation rewards minted by a chain with the x/mint module enabled.
+- Transaction fees: gas fees or tax fees that are distributed to validators and delegators.
+- TakeRate fees: the annualized redistribution of staked Alliance assets.
+
+These rewards are distributed to stakers using the Cosmos-native x/distribution module. First, rewards are sent to the `fee_collector` module account. During the next begin block event, all rewards are distributed to validators proportional to their voting power. Delegators can then claim their rewards from validators. For more information on reward calculations, visit the [State transitions page](../tech/transitions.mdx#reward-calculation-and-distribution). 
+
+![](/img/alliance/rewards.png)
