@@ -8,15 +8,17 @@ Alliance is an [open-source Cosmos SDK module](https://github.com/terra-money/al
 
 ## Alliance: Stake any asset
 
-Before learning about the Alliance module, it's important to understand what staking is. Staking is the process of locking up a crypto asset to provide economic stability and power the block production of a proof-of-stake blockchain. In exchange for locking up assets for a period, users earn staking rewards. By default, blockchains created using the Cosmos SDK have only one asset which can be staked, called the native asset. For example, the native staking asset for the Terra blockchain is Luna. The addition of the Alliance module allows additional assets to be staked. 
+Staking is the process of locking up a crypto asset to provide economic stability and power the block production of a proof-of-stake blockchain. In exchange for locking up assets for a period, users earn staking rewards. By default, blockchains created using the Cosmos SDK have only one asset which can be staked, called the native asset. For example, the native staking asset for the Terra blockchain is Luna. The addition of the Alliance module allows additional assets to be staked. 
 
-**In simple terms, the Alliance module enables multiple assets to be staked on a chain.**  
+> **In simple terms, the Alliance module enables multiple assets to be staked on a chain.**  
 
-The assets of one chain can be staked on another, creating a mutually-beneficial economic partnership through interchain staking. For example, the staking asset of a larger chain can be staked on a smaller chain, forming an economic alliance. The users of the larger chain gain access to increased staking rewards, and the smaller chain benefits from an influx of users and economic activity. Both chains benefit from the cross-chain relationship, exposing users to a wider variety of diverse assets and yield opportunities.
+With Alliance, the assets of one chain can be staked on another, creating a mutually-beneficial economic partnership through interchain staking. For example, the staking asset of a larger chain can be staked on a smaller chain, forming an economic alliance. The users of the larger chain gain access to increased staking rewards, and the smaller chain benefits from an influx of users and economic activity. Both chains benefit from the cross-chain relationship, exposing users to a wider variety of diverse assets and yield opportunities.
 
 ## The Alliance module
 
 The Alliance module can be added to any compatible Cosmos chain, and does not require any changes to consensus or common core modules. This module wraps around a chain’s native staking module, allowing whitelisted assets to be staked and earn rewards. 
+
+The Alliance module can be implemented into any blockchain created using the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk). New chains can utilize the Alliance module by [adding it to their codebase before genesis](./guides/get-started.mdxmdx). Existing chains can add the Alliance module to their chain by [implementing a software upgrade](https://docs.cosmos.network/main/modules/gov#software-upgrade).
 
 ### What are Alliance assets? 
 
@@ -53,8 +55,7 @@ In addition to these native rewards, the Alliance module introduces a third sour
 
 Liquid Staking Derivatives (LSDs) are tokenized representations of staked assets. They represent the value of an underlying staking asset and the rewards that asset has accrued. LSDs appreciate in value at the yield rate of their underlying staked assets. Unlike staked assets, LSDs can be traded freely and are excellent candidates to be Alliance assets. Because they represent an already staked asset, they are an attractive source of increased yield when staked on a different chain, combining the underlying staking yield with the rewards produced through Alliance staking.
 
-### Fueling an Alliance: the exchange of rewards
-
+### LSDs and the Take Rate
 When paired with the Take Rate, LSDs can be used to exchange rewards between chains. For example, imagine you stake a Luna LSD as an Alliance asset on a chain named Ex (with a native staking asset called Ex). If the Take Rate tax for the Luna LSD is equal to the underlying appreciation rate of the LSD, you lose as much as your LSD appreciates. The Take Rate proceeds are distributed among all the stakers of the Ex chain, allowing Ex chain to be exposed to LunaLSD. As a reward for giving up your underlying yield, you will gain the staking rewards on the Ex chain in the form of Ex, diversifying your wallet and exposing you to a new asset. You are effectively trading the yield of your Luna LSD with the rewards of Ex, mutually benefiting both chains. In this scenario, larger chains can strengthen the economies of smaller chains through the indirect exchange of staking rewards.
 
 ## Governance
