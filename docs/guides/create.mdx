@@ -13,8 +13,8 @@ Transactions that affect Alliances can only be executed via the governance modul
 Creating an Alliance uses the `/alliance.alliance.MsgCreateAllianceProposal` type. This proposal type describes the `Alliance` attribute with the following properties:
 
 - **Denom**: The address of the Alliance asset that the community wants to whitelist.
-- [**RewardWeight**](../concepts/staking.mdx): Specifies the ratio of rewards and voting power given to each Alliance asset. It does not need to sum to 1 ($ratio = \frac{asset\_weight}{sum\_of\_total\_weight}$). 
-- [**TakeRate**](../concepts/rewards.mdx): Defines an annualized reward rate that will be redirected to the distribution rewards pool. Used for liquid staking derivatives.
+- [**RewardWeight**](../tech/concepts/staking.mdx): Specifies the ratio of rewards and voting power given to each Alliance asset. It does not need to sum to 1 ($ratio = \frac{asset\_weight}{sum\_of\_total\_weight}$). 
+- [**TakeRate**](../tech/concepts/rewards.mdx): Defines an annualized reward rate that will be redirected to the distribution rewards pool. Used for liquid staking derivatives.
 - **Title**: The name of the governance proposal.
 - **Description**: A description of the governance proposal.
 
@@ -41,7 +41,7 @@ Deleting an Alliance is of type `/alliance.alliance.MsgDeleteAllianceProposal`. 
 
 <Admonition type="caution" title="Before deleting an Alliance">
 
-The first step in deleting an Alliance is to update the Alliance asset's [`RewardWeight`](../concepts/staking.mdx) to `0`. This will remove all voting power and rewards from the Alliance, effectively removing its influence in the chain.
+The first step in deleting an Alliance is to update the Alliance asset's [`RewardWeight`](../tech/concepts/staking.mdx) to `0`. This will remove all voting power and rewards from the Alliance, effectively removing its influence in the chain.
 
 </Admonition>
 
