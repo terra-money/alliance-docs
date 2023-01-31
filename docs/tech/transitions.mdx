@@ -28,7 +28,7 @@ The basic delegation sequence is as follows.
 5. Update the validator shares,
 6. Queue the rebalance assets event.
 
-Because the delegating sequence does not require rewards to be claimed, it is not called directly by the `EndBlocker`. Instead, delegations are set in the rebalance queue, which is then called by the `EndBlocker`. For more details on delegation, visit the [Delegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go). For more information on rebalancing, visit the [concepts section](concepts/staking.mdx).
+Because the delegating sequence does not require rewards to be claimed, it is not called directly by the `EndBlocker`. Instead, delegations are set in the rebalance queue, which is then called by the `EndBlocker`. For more details on delegation, visit the [Delegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go). For more information on rebalancing, visit the [concepts section](../concepts/staking.mdx).
 
 ## Redelegate
 
@@ -47,7 +47,7 @@ The basic redelegation sequence is as follows.
 9. Queue the redelegations to be executed based on the unbonding time.
 10. Queue the rebalance assets event.
 
-For more details on redelegation, visit the [Redelegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go). For more information on rebalancing, visit the [concepts section](concepts/staking.mdx).
+For more details on redelegation, visit the [Redelegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go). For more information on rebalancing, visit the [concepts section](../concepts/staking.mdx).
 
 ## Undelegate
 
@@ -63,7 +63,7 @@ The basic sequence is as follows.
 6. Queue the undelegation to be executed based on the unbonding time.
 7. Queue the rebalance assets event.
 
-For more details on undelegating, visit the [Undelegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go).  For more information on rebalancing, visit the [concepts section](concepts/staking.mdx).
+For more details on undelegating, visit the [Undelegate function from delegation.go](https://github.com/terra-money/alliance/blob/main/x/alliance/keeper/delegation.go).  For more information on rebalancing, visit the [concepts section](../concepts/staking.mdx).
 
 ## Queues
 
@@ -89,7 +89,7 @@ The events that trigger rebalancing are:
 - The slashing of a validator.
 - Alliance coin delegations, redelegations, and undelegations.
 
-For more information on rebalancing, visit the [concepts section](concepts/staking.mdx).
+For more information on rebalancing, visit the [concepts section](../concepts/staking.mdx).
 
 <Admonition type="tip" title="Redelegating a native coin">
 
@@ -125,7 +125,7 @@ Whenever a rebalancing is requested, the following happens:
 ### Rewards Pool
 
 A new module account is introduced to store all rewards that have not been claimed by a delegator. When adding rewards to the pool for a given validator, the validator’s global `RewardHistories` data structure will be updated.
-For more general information on rewards, visit the [rewards](concepts/rewards.mdx) section. 
+For more general information on rewards, visit the [rewards](../concepts/rewards.mdx) section. 
 
 ### Reward Histories
 
@@ -159,16 +159,16 @@ When delegators claim rewards, the following sequence occurs:
 5. The delegator’s `RewardHistories` is then updated to match the global value to signify that the latest rewards have been claimed.
 6. Return totalRewards as the amount that a delegator can claim.
 
-For more information about rewards, visit the [rewards](concepts/rewards.mdx) section. 
+For more information about rewards, visit the [rewards](../concepts/rewards.mdx) section. 
 
 ## Take Rate Deduction
 
 The `TakeRate` is deducted at an interval defined in the module parameters as `Params.RewardClaimInterval`. The previous time this deduction was executed is saved in `Params.LastRewardClaimTime`. During every endblock, the Alliance module will check to see if the current block time minus the `LastRewardClaimTime` is greater than the `RewardsClaimInterval`.
 
-If true, it will apply the `TakeRate` to the assets and send the deducted tokens to the fee collector module account to be redistributed among stakers. For more information about the `TakeRate`, visit the [rewards](concepts/rewards.mdx) section. 
+If true, it will apply the `TakeRate` to the assets and send the deducted tokens to the fee collector module account to be redistributed among stakers. For more information about the `TakeRate`, visit the [rewards](../concepts/rewards.mdx) section. 
 
 ## Slashing
 
-Slashing is based on the `BeforeValidatorSlashed` hook from the Cosmos SDK’s [StakingHooks](https://github.com/cosmos/cosmos-sdk/tree/main/x/staking#hooks). When the hook is executed, the Alliance module will subtract a [proportional amount of shares](https://github.com/cosmos/cosmos-sdk/tree/main/x/staking#delegator-shares) of each delegator from the slashed validators. Undelegations and redelegations are affected by the slashing event if they are not completed before the block time of the slashing event. After the slashing is completed, an asset rebalance event is queued. For more information on slashing and shares, visit the [Delegations and Validator Shares](concepts/delegation.mdx) page. 
+Slashing is based on the `BeforeValidatorSlashed` hook from the Cosmos SDK’s [StakingHooks](https://github.com/cosmos/cosmos-sdk/tree/main/x/staking#hooks). When the hook is executed, the Alliance module will subtract a [proportional amount of shares](https://github.com/cosmos/cosmos-sdk/tree/main/x/staking#delegator-shares) of each delegator from the slashed validators. Undelegations and redelegations are affected by the slashing event if they are not completed before the block time of the slashing event. After the slashing is completed, an asset rebalance event is queued. For more information on slashing and shares, visit the [Delegations and Validator Shares](../concepts/delegation.mdx) page. 
 
-Alliance coins slashed from validators are redistributed among the rest of the validators. For more on validator shares, visit the [Delegations and validator shares](concepts/delegation.mdx) section
+Alliance coins slashed from validators are redistributed among the rest of the validators. For more on validator shares, visit the [Delegations and validator shares](../concepts/delegation.mdx) section
