@@ -18,8 +18,6 @@ With Alliance, the assets of one chain can be staked on another, creating a mutu
 
 The Alliance module can be added to any compatible Cosmos chain, and does not require any changes to consensus or common core modules. This module wraps around a chain’s native staking module, allowing whitelisted assets to be staked and earn rewards. 
 
-The Alliance module can be implemented into any blockchain created using the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk). New chains can utilize the Alliance module by [adding it to their codebase before genesis](./guides/get-started.mdxmdx). Existing chains can add the Alliance module to their chain by [implementing a software upgrade](https://docs.cosmos.network/main/modules/gov#software-upgrade).
-
 ### What are Alliance assets? 
 
 An Alliance asset can technically be any asset, including IBC assets and Liquid Staking Derivatives (LSDs) from other chains. Once staked, the asset will start accruing staking rewards. Like native staking assets, Alliance assets can be staked, unstaked, or redelegated to different validators. Alliance assets are also subject to an unbonding period after unstaking. To the user, staking an Alliance asset is as seamless as staking a native asset. For a more technical explanation of how Alliance assets are staked, visit the Staking page.
