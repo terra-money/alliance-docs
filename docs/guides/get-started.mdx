@@ -298,9 +298,7 @@ import (
 
 ```
 
-
-
-2. Add a line to register the keepers that the custom Bank module needs
+2. Add a line to register the keepers that the custom Bank module needs. 
 
 ```go app.go mark=12
 app.AllianceKeeper = alliancemodulekeeper.NewKeeper(
@@ -317,4 +315,25 @@ app.AllianceKeeper = alliancemodulekeeper.NewKeeper(
 app.BankKeeper.RegisterKeepers(app.AllianceKeeper, &stakingKeeper)
 ```
 
+3. Add the following keeper to allow the Alliance module access to transfer tokens directly to accounts. 
 
+```go app.go
+app.BankKeeper = custombankkeeper.NewBaseKeeper(
+	appCodec,
+	keys[banktypes.StoreKey],
+	app.AccountKeeper,
+	app.GetSubspace(banktypes.ModuleName),
+	app.BlockedModuleAccountAddrs(),
+)
+
+//Then add the following function in a section below the previous
+
+func (app *App) BlockedModuleAccountAddrs() map[string]bool {
+	modAccAddrs := app.ModuleAccountAddrs()
+	delete(modAccAddrs, authtypes.NewModuleAddress(govtypes.ModuleName).String())
+	delete(modAccAddrs, authtypes.NewModuleAddress(alliancemoduletypes.ModuleName).String())
+
+	return modAccAddrs
+}
+
+```
