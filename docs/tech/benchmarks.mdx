@@ -9,13 +9,13 @@ import Admonition from '@theme/Admonition';
 
 Benchmarks were collected using a simulation app running 1000 blocks. The main computing bottlenecks are:
 
-1. Rebalancing voting weights during endblockers when voting power changes.
-    - This bottleneck scales mainly by number of bonded Alliance validators.
-2. Allocating take rate rewards to validators every begin block (default x/distribution behavior)
-    - This bottleneck scales mainly by number of assets with take rates.
-    - This event can be tuned by increasing take rate claim interval.
+1. [Rebalancing](../concepts/staking.mdx#rebalancing) weights during endblockers when [reward power](../concepts/staking.mdx#reward-weight) changes.
+    - This bottleneck scales mainly by the number of bonded Alliance validators.
+2. Allocating [take rate](../concepts/rewards.mdx#reward-weight) rewards to validators every begin block (default x/distribution behavior)
+    - This bottleneck scales mainly by the number of assets with take rates.
+    - This event can be tuned by increasing the [take rate](../concepts/rewards.mdx) claim interval.
 
-The worst-case complexity of rebalancing voting weight scales by $O(nA)$, where n is the number of active Alliance validators, and A is the number of Alliance assets. In practice, rebalancing only updates bonded validators with staked Alliance assets. The following table shows the benchmark data as the number of Alliance assets and validators varies.
+The worst-case complexity of rebalancing reward weight scales by $O(nA)$, where n is the number of active Alliance validators, and A is the number of Alliance assets. In practice, rebalancing only updates bonded validators with staked Alliance assets. The following table shows the benchmark data as the number of Alliance assets and validators varies.
 
 |  |  | Validators (Average block time in seconds) |
 | --- | --- | --- |
