@@ -6,7 +6,7 @@ sidebar_position: 3
 
 ## TakeRate
 
-When adding a new Alliance coin, a `TakeRate` can be defined. The `TakeRate` is an annualized tax that redistributes a portion of staked Alliance coin to all stakers on-chain. When paired with an [Liquid Staking Derivative (LSD)](../alliance.mdx#liquid-staking-derivatives), the yield rate of the LSD can be redistributed to all stakers. If the yield rate of the LSD is equal to the Take Rate, the native chain inflation of the LSD is essentially shifted to the chain the LSD is an an Alliance asset on. For a detailed look at the take rate, visit the [How Alliance works](../alliance.mdx#the-take-rate) section. 
+When adding a new Alliance coin, a `TakeRate` can be defined. The `TakeRate` is an annualized tax that redistributes a portion of staked Alliance coin to all stakers on-chain. When paired with an [Liquid Staking Derivative (LSD)](../alliance.mdx#liquid-staking-derivatives), the yield rate of the LSD can be redistributed to all stakers. If the yield rate of the LSD is equal to the Take Rate, the native chain inflation of the LSD is essentially shifted to the chain the LSD is an Alliance asset on. For a detailed look at the take rate, visit the [How Alliance works](../alliance.mdx#the-take-rate) section. 
 
 The `TakeRate` is defined as a decimal percentage per year. The interval by which this rate is claimed is determined by the module parameter `TakeRateClaimInterval`. When executed, the `TakeRate` amount is deducted from an Alliance asset’s staking pool and deposited into the reward pool, to be distributed to validators and delegators.
 
