@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Delegations and Validator Shares
 
-In order to reduce the cost of updating delegation and validator ownership of staked coins whenever we perform slashing and [`TakeRate`](./rewards.mdx) deductions, the concept of shares is used. Similar to the shares implementation of the [Cosmos `x/staking` module](https://docs.cosmos.network/main/modules/staking#how-shares-are-calculated), shares are used to keep track of validator assets as proportions of a whole, rather than individual coin balances per account.
+In order to reduce the cost of updating delegation and validator ownership of staked coins whenever slashing and [`TakeRate`](./rewards.mdx) deductions are performed, the concept of shares is used. Similar to the shares implementation of the [Cosmos `x/staking` module](https://docs.cosmos.network/main/modules/staking#how-shares-are-calculated), shares are used to keep track of validator assets as proportions of a whole, rather than individual coin balances per account.
 
 Conversions between coins and shares use the following formula:
 
@@ -18,6 +18,6 @@ To calculate the coins staked by a delegator, a two-step formula is used. The fi
 
 ![](/img/alliance/validator-coins.png) 
 
-To determine the amount of coins a delegator owns, the delegation shares are multiplied by the total validator coins, divided by the total validator shares.
+To determine the amount of coins a delegator owns, the delegation shares are multiplied by the total amount of validator coins, divided by the total amount of validator shares.
 
 ![](/img/alliance/delegator-coins.png) 

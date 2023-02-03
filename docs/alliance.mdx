@@ -1,0 +1,75 @@
+---
+sidebar_position: 3
+---
+
+# 🛠 How Alliance works
+
+Alliance is an [open-source Cosmos SDK module](https://github.com/terra-money/alliance) that leverages interchain staking to form economic alliances among blockchains. The following section is a general outline of the Alliance module. For a detailed overview of how Alliance staking works, visit the [in-depth concepts section](./concepts/staking.mdx). 
+
+## Alliance: Stake any asset
+
+Staking is the process of locking up a crypto asset to provide economic stability and power the block production of a proof-of-stake blockchain. In exchange for locking up assets for a period, users earn staking rewards. By default, blockchains created using the Cosmos SDK have only one asset which can be staked, called the native asset. For example, the native staking asset for the Terra blockchain is Luna. The integration of the Alliance module allows additional assets to be staked. 
+
+> **In simple terms, the Alliance module enables multiple assets to be staked on a chain.**  
+
+With Alliance, the assets of one chain can be staked on another, creating a mutually-beneficial economic partnership through interchain staking. For example, the staking asset of a larger chain can be staked on a smaller chain, forming an economic alliance. The users of the larger chain gain access to increased staking rewards, and the smaller chain benefits from an influx of users and economic activity. Both chains benefit from the cross-chain relationship, exposing users to a wider variety of diverse assets and yield opportunities.
+
+## The Alliance module
+
+The Alliance module can be [added to any compatible Cosmos chain](./guides/get-started.mdx), and does not require any changes to consensus or major changes to common core modules. This module wraps around a chain’s native staking module, allowing whitelisted assets to be staked and earn rewards. Alliance assets can be staked with the Alliance module, and the chain's native staking module is used for native stakers. 
+
+### What are Alliance assets? 
+
+An Alliance asset can technically be any asset, including IBC assets and Liquid Staking Derivatives (LSDs) from other chains. Assets can be minted on one chain, bridged through IBC, and staked on a chain with the Alliance module. Once staked, the asset will start accruing staking rewards. Like native staking assets, Alliance assets can be staked, unstaked, or redelegated to different validators. Alliance assets are also subject to an unbonding period after unstaking. To the user, staking an Alliance asset is as seamless as staking a native asset. For a more technical explanation of how Alliance assets are staked, visit the [Staking page](./concepts/staking.mdx).
+
+![](/img/alliance/1-stake.png)
+
+### Adding Alliance assets
+
+The Alliance module can be integrated into a chain via a software upgrade proposal. Once the Alliance module is approved by governance, native stakers will then have to decide which assets they want to add. Then, an [Alliance proposal](./guides/create.mdx#create-an-alliance) can then be created and submitted to governance. This proposal contains a title, description, and the following information:
+
+- The denomination of the asset to be added
+- A [Reward Weight](./concepts/staking.mdx#reward-weight): the proportion of total staking rewards to be directed to stakers of the asset.
+- a [Take Rate](./concepts/rewards.mdx): a tax that redistributes a percentage of the Alliance asset to stakers.
+
+After being approved, the assets become Alliance assets, which can be staked by users to start earning rewards.
+
+## Rewards
+
+### How are rewards determined?
+
+The amount of rewards an Alliance asset accrues is determined by the asset’s Reward Weight. This parameter is set by governance and represents the maximum proportion of rewards an asset will earn, relative to the total rewards of the chain. Native tokens always have a reward weight of `1`. For instance, imagine a chain has two staking assets: a native staking asset, and an Alliance asset called "AL1". If AL1 has a Reward Weight of `.3`, the rewards shared by all stakers of the staked AL1 Alliance asset will be .23% of the total rewards of the chain. The remaining 77% of rewards will be distributed to users who stake the chain's native asset. To learn more about reward weights and calculations, visit the [ In-depth staking page](./concepts/staking.mdx).
+
+![](/img/alliance/3-rewards.png)
+
+### Where do staking rewards come from?
+
+Most Cosmos chains generate native staking rewards from two sources:
+
+- [Inflation rewards](https://docs.cosmos.network/main/modules/mint#the-minting-mechanism): new native tokens minted and released as rewards every block according to a chain’s inflation rate.
+- [Gas fees](https://docs.cosmos.network/v0.47/basics/gas-fees#introduction-to-gas-and-fees): the computational transaction fees applied to every blockchain transaction.
+
+Because gas and inflation are typically denominated in a chain’s native asset, Alliance stakers will receive native rewards in the form of the native asset of whichever chain they are staked upon.
+
+#### The Take Rate
+
+In addition to the native rewards above, the Alliance module introduces a third source of rewards, called the [**Take Rate**](./concepts/rewards.mdx#take-rate). The Take Rate is an annualized tax particular to each Alliance asset. The Take Rate is periodically applied to a staked Alliance asset, and the proceeds are distributed among all stakers. The take rate is optional and is designed to be used with Liquid Staking Derivatives (LSDs). Because the take rate is a tax applied on Alliance assets, rewards from the take rate are denominated in whatever Alliance asset they came from. Take Rate rewards can add diversity to a staker’s wallet, strengthening their position against volatility while encouraging the exploration of other chains.
+
+![](/img/alliance/6-reward.png)
+
+## Liquid Staking Derivatives
+
+Liquid Staking Derivatives (LSDs) are tokenized representations of staked assets. They represent the value of an underlying staking asset and the rewards that asset has accrued. LSDs appreciate in value at the yield rate of their underlying staked assets. Unlike staked assets, LSDs can be traded freely and are excellent candidates to be Alliance assets. Because they represent an already staked asset, they are an attractive source of increased yield when staked on a different chain, combining the underlying staking yield with the rewards produced through Alliance staking.
+
+### LSDs and the Take Rate
+
+When paired with the [Take Rate](./concepts/rewards.mdx#take-rate), LSDs can be used to exchange rewards between chains. For example, imagine you stake a Luna LSD as an Alliance asset on a chain named Ally1 (with a native staking asset called AL1). If the Take Rate tax for the Luna LSD is equal to the underlying appreciation rate of the LSD, you lose as much as your LSD appreciates. The Take Rate proceeds are distributed among all the stakers of the Ally1 chain, allowing the Ally1 chain to be exposed to LunaLSD. As a reward for giving up your underlying yield, you will gain the staking rewards on the Ex chain in the form of Ex, diversifying your wallet and exposing you to a new asset. You are effectively trading the yield of your Luna LSD with the rewards of Ex, mutually benefiting both chains. In this scenario, larger chains can strengthen the economies of smaller chains through the indirect exchange of staking rewards.
+
+The following diagram illustrates how an LSD with a Take Rate equal to its yield rate can be used to transfer yield to all stakers. 
+
+![](/img/alliance/5-take.png)
+
+
+## Governance
+
+All parameters for Alliance assets are updated and controlled by governance. The integration of the Alliance module, as well as the addition of any Alliance assets, must be voted on by the native stakers of a chain. Although Alliance assets can be staked to validators and earn rewards, they can’t be used to specify votes in governance, due to the underlying logic of the Alliance module. To learn about [integrating the Alliance module](./guides/get-started.mdx), [adding or updating Alliance assets](guides/create.mdx), or [governance](./concepts/staking.mdx#governance), visit the [in-depth concepts section](./concepts/staking.mdx) or the [Technical specs](./tech/asset.mdx).
