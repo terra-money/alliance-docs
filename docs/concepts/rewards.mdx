@@ -6,11 +6,11 @@ sidebar_position: 3
 
 ## TakeRate
 
-When adding a new Alliance coin, a `TakeRate` can be defined. The `TakeRate` is an annualized tax that redistributes a portion of staked Alliance coin to all stakers on-chain. When paired with an [Liquid Staking Derivative (LSD)](../alliance.mdx#liquid-staking-derivatives), the yield rate of the LSD can be redistributed to all stakers. If the yield rate of the LSD is equal to the Take Rate, the native chain inflation of the LSD is essentially shifted to the chain the LSD is an Alliance asset on. For a detailed look at the take rate, visit the [How Alliance works](../alliance.mdx#the-take-rate) section. 
-
-The `TakeRate` is defined as a decimal percentage per year. The interval by which this rate is claimed is determined by the module parameter `TakeRateClaimInterval`. When executed, the `TakeRate` amount is deducted from an Alliance asset’s staking pool and deposited into the reward pool, to be distributed to validators and delegators.
+When adding a new Alliance coin, a `TakeRate` can be defined. The `TakeRate` is a tax that redistributes a portion of staked Alliance coin to all stakers on-chain. The `TakeRate` is defined as a decimal percentage per unit of time. The interval by which this rate is claimed is determined by the module parameter `TakeRateClaimInterval`. When executed, the `TakeRate` amount is deducted from an Alliance asset’s staking pool and deposited into the reward pool, to be distributed to validators and delegators. For example, if the `TakeRate` is set to 1% and the `TakeRateClaimInterval` is set to 1 minute, the take rate would be applied to the asset's staking pool, deducting 1% of the pool every minute.
 
 For more information on `TakeRate` deductions, visit the [State transitions page](../tech/transitions.mdx#take-rate-deduction). 
+
+When paired with a [Liquid Staking Derivative (LSD)](../alliance.mdx#liquid-staking-derivatives), the yield rate of the LSD can be redistributed to all stakers. If the yield rate of the LSD is equal to the annualized amount deducted by the `TakeRate`, the native chain inflation of the LSD is essentially shifted to the chain the LSD is an Alliance asset on. For an example of how the take rate can be used with LSDs, visit the [How Alliance works](../alliance.mdx#the-take-rate) section. 
 
 ## Rewards Distribution
 
