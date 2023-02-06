@@ -9,18 +9,18 @@ const homeCards: CardProps[] = [
     summary: 'Discover the Alliance module.'
   },
   {
-    href: '/concepts/what-is',
-    lightSVG: '/img/icons/core/evidence.svg',
-    darkSVG: '/img/icons/dark/evidence.svg',
-    header: 'How it works',
-    summary: 'Learn about Alliances and assets.'
+    href: '/alliance',
+    lightSVG: '/img/icons/station/stake.svg',
+    darkSVG: '/img/icons/dark/stake.svg',
+    header: 'How Alliance works',
+    summary: 'Learn about Alliance staking and assets.'
   },
   {
     href: '/concepts/staking',
-    lightSVG: '/img/icons/station/stake.svg',
-    darkSVG: '/img/icons/dark/stake.svg',
-    header: 'Alliance staking',
-    summary: 'Learn about staking and rewards.'
+    lightSVG: '/img/icons/core/evidence.svg',
+    darkSVG: '/img/icons/dark/evidence.svg',
+    header: 'In-depth concepts',
+    summary: 'Explore Alliance in detail.'
   },
   {
     href: '/guides/get-started',

@@ -79,9 +79,9 @@ The Alliance module has three queues that are checked at the end of every block,
     - `BeforeValidatorSlashed`
 - **Reward Weight Decay**: Iterate all mature events and update the reward weight for the Alliance asset.
 
-## Voting Power Rebalancing
+## Rebalancing
 
-Voting power is rebalanced at the end of a block whenever the block contains an event that triggers a voting power change.
+Reward power is rebalanced at the end of a block whenever the block contains an event that triggers a reward power change.
 
 The events that trigger rebalancing are:
 
@@ -93,7 +93,7 @@ For more information on rebalancing, visit the [concepts section](../concepts/st
 
 <Admonition type="tip" title="Redelegating a native coin">
 
-Because redelegating a native coin does not change the supply of the native coin, and because the voting power of native coins is always equal with the staked amount, the redelegation of native assets does not trigger a rebalance of voting power.
+Because redelegating a native coin does not change the supply of the native coin, and because the reward power of native coins is always equal to the staked amount, the redelegation of native assets does not trigger a rebalance of reward power.
 
 </Admonition>
 
@@ -107,10 +107,10 @@ Whenever a rebalancing is requested, the following happens:
 6. Filter for validators that are bonded
 
 7. For each bonded validator:
-    - Query the current amount of native coins that the `x/alliance` module staked with the validator. These coins represent the voting power of staked Alliance coins.
+    - Query the current amount of native coins that the `x/alliance` module staked with the validator. These coins represent the reward power of staked Alliance coins.
 
 8. For each Alliance asset:
-    - Calculate the expected native coins (voting power) that the validator should have based on the asset's reward weight and the amount of the asset. This amount should be the rebalanced voting power, as it takes into account the changes made during the block.
+    - Calculate the expected native coins (reward power) that the validator should have based on the asset's reward weight and the amount of the asset. This amount should be the rebalanced reward power, as it takes into account the changes made during the block.
     - Take the difference between the expected amount and the current amount of native coins staked. This is the amount that needs to be rebalanced.
 
 9. If the expected amount is more than the current amount:
@@ -129,7 +129,7 @@ For more general information on rewards, visit the [rewards](../concepts/rewards
 
 ### Reward Histories
 
-The `RewardHistories` data structure is used to track the amount of rewards eligible for delegations and the amount of rewards claimed by delegators without having to iterate through all delegations every block. `RewardHistories` track the rewards that a unit of voting power is eligible for.
+The `RewardHistories` data structure is used to track the amount of rewards eligible for delegations and the amount of rewards claimed by delegators without having to iterate through all delegations every block. `RewardHistories` track the rewards that a unit of reward power is eligible for.
 
 ### Reward Histories Snapshot
 
