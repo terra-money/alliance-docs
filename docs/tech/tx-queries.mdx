@@ -15,7 +15,7 @@ Delegate an amount of liquid Alliance-enabled coins to a validator from your wal
 
 
 ```go Tx
-tx alliance delegate <validator-addr> <amount>
+allianced tx alliance delegate <validator-addr> <amount>
 ```
 
 ### Redelegate
@@ -23,7 +23,7 @@ tx alliance delegate <validator-addr> <amount>
 Redelegate an amount of liquid Alliance-enabled coins from one validator to another from your wallet.
 
 ```go Tx
-tx alliance redelegate <src-validator-addr> <dst-validator-addr amount>
+allianced tx alliance redelegate <src-validator-addr> <dst-validator-addr amount>
 ```
 
 ### Undelegate
@@ -32,7 +32,7 @@ tx alliance redelegate <src-validator-addr> <dst-validator-addr amount>
 Undelegate an amount of liquid Alliance-enabled coins from a validator. These assets can be claimed after the unbonding period.
 
 ```go Tx
-tx alliance undelegate <validator-addr> <amount>
+allianced tx alliance undelegate <validator-addr> <amount>
 ```
 
 ### Claim rewards
@@ -40,7 +40,7 @@ tx alliance undelegate <validator-addr> <amount>
 Claim rewards from a delegation by specifying a denom and a validator address.
 
 ```go Tx
-tx alliance claim-rewards <validator-addr> <amount>
+allianced tx alliance claim-rewards <validator-addr> <amount>
 ```
 
 
@@ -51,7 +51,7 @@ tx alliance claim-rewards <validator-addr> <amount>
 Query a specific Alliance by denom.
 
 ```go Query
-alliance denom
+allianced query alliance alliance <denom>
 ```
 
 ### Alliances
@@ -59,7 +59,7 @@ alliance denom
 Query paginated Alliances.
 
 ```go Query
-alliances
+allianced query alliance alliances
 ```
 
 ### Delegation
@@ -67,7 +67,7 @@ alliances
 Query a delegation to an Alliance by `delegator-addr`, `validator-addr`, and denom.
 
 ```go Query
-delegation delegator-addr validator-addr denom
+allianced query alliance delegation <delegator-addr> <validator-addr> <denom>
 ```
 
 ### Delegations
@@ -75,7 +75,7 @@ delegation delegator-addr validator-addr denom
 Query all paginated Alliance delegations for a particular `delegator-addr`
 
 ```go Query
-delegations-by-delegator delegator-addr
+allianced query alliance delegations-by-delegator <delegator-addr>
 ```
 
 ### Delegations validator
@@ -83,7 +83,7 @@ delegations-by-delegator delegator-addr
 Query all paginated Alliance delegations for a `delegator-addr` and `validator-addr`
 
 ```go Query
-delegations-by-delegator-and-validator delegator-addr validator-addr
+allianced query alliance delegations-by-delegator-and-validator <delegator-addr> <validator-addr>
 ```
 
 ### Params
@@ -91,7 +91,7 @@ delegations-by-delegator-and-validator delegator-addr validator-addr
 Query module parameters.
 
 ```go Query
-params
+allianced query alliance params
 ```
 
 ### Rewards
@@ -99,17 +99,19 @@ params
 Query rewards generated for a specific Alliance by `delegator-addr`, `validator-addr`, and a `denom`.
 
 ```go Query
-rewards delegator-addr validator-addr denom
+allianced query alliance rewards <delegator-addr> <validator-addr> <denom>
 ```
 
 ## Governance
+
+For an in-depth look at creating, updating, or deleting an Alliance, visit the [Alliance creation guide](../guides/create.mdx).
 
 ### Create
 
 Create an Alliance with the specified parameters.
 
 ```go Governance
-create-alliance denom rewards-weight take-rate
+allianced tx gov submit-legacy-proposal create-alliance <denom> <rewards-weight> <take-rate>
 ```
 
 ### Update
@@ -117,7 +119,7 @@ create-alliance denom rewards-weight take-rate
 Update an Alliance with the specified parameters.
 
 ```go Governance
-update-alliance denom rewards-weight take-rate
+allianced tx gov submit-legacy-proposal update-alliance <denom> <rewards-weight> <take-rate>
 ```
 
 ### Delete
@@ -125,5 +127,5 @@ update-alliance denom rewards-weight take-rate
 Delete an Alliance with the specified denom. [See Deleting an Alliance for more details](../guides/create.mdx#delete-an-alliance).
 
 ```go Governance
-delete-alliance denom
+allianced tx gov submit-legacy-proposal delete-alliance <denom>
 ```
