@@ -4,18 +4,16 @@ title: Transactions and queries
 hide_title: false
 ---
 
-Users can interact with the Alliance module via **[gRPC](https://github.com/terra-money/alliance/blob/main/docs/static/openapi.yml)** or by using the set of subcommands from the Alliance module to **transact** and **query.** 
+Users can interact with the Alliance module via RPC/LCD or by using the set of subcommands from the Alliance module to **transact** and **query.**
 
 ## Transactions
-
 
 ### Delegate
 
 Delegate an amount of liquid Alliance-enabled coins to a validator from your wallet.
 
-
 ```go Tx
-allianced tx alliance delegate <validator-addr> <amount>
+tx alliance delegate <validator-addr> <amount>
 ```
 
 ### Redelegate
@@ -23,16 +21,15 @@ allianced tx alliance delegate <validator-addr> <amount>
 Redelegate an amount of liquid Alliance-enabled coins from one validator to another from your wallet.
 
 ```go Tx
-allianced tx alliance redelegate <src-validator-addr> <dst-validator-addr amount>
+tx alliance redelegate <src-validator-addr> <dst-validator-addr amount>
 ```
 
 ### Undelegate
 
-
 Undelegate an amount of liquid Alliance-enabled coins from a validator. These assets can be claimed after the unbonding period.
 
 ```go Tx
-allianced tx alliance undelegate <validator-addr> <amount>
+tx alliance undelegate <validator-addr> <amount>
 ```
 
 ### Claim rewards
@@ -40,18 +37,17 @@ allianced tx alliance undelegate <validator-addr> <amount>
 Claim rewards from a delegation by specifying a denom and a validator address.
 
 ```go Tx
-allianced tx alliance claim-rewards <validator-addr> <amount>
+tx alliance claim-rewards <validator-addr> <amount>
 ```
 
-
-## Queries 
+## Queries
 
 ### Denom
 
 Query a specific Alliance by denom.
 
 ```go Query
-allianced query alliance alliance <denom>
+alliance denom
 ```
 
 ### Alliances
@@ -59,7 +55,7 @@ allianced query alliance alliance <denom>
 Query paginated Alliances.
 
 ```go Query
-allianced query alliance alliances
+alliances
 ```
 
 ### Delegation
@@ -67,7 +63,7 @@ allianced query alliance alliances
 Query a delegation to an Alliance by `delegator-addr`, `validator-addr`, and denom.
 
 ```go Query
-allianced query alliance delegation <delegator-addr> <validator-addr> <denom>
+delegation delegator-addr validator-addr denom
 ```
 
 ### Delegations
@@ -75,7 +71,7 @@ allianced query alliance delegation <delegator-addr> <validator-addr> <denom>
 Query all paginated Alliance delegations for a particular `delegator-addr`
 
 ```go Query
-allianced query alliance delegations-by-delegator <delegator-addr>
+delegations-by-delegator delegator-addr
 ```
 
 ### Delegations validator
@@ -83,7 +79,7 @@ allianced query alliance delegations-by-delegator <delegator-addr>
 Query all paginated Alliance delegations for a `delegator-addr` and `validator-addr`
 
 ```go Query
-allianced query alliance delegations-by-delegator-and-validator <delegator-addr> <validator-addr>
+delegations-by-delegator-and-validator delegator-addr validator-addr
 ```
 
 ### Params
@@ -91,7 +87,7 @@ allianced query alliance delegations-by-delegator-and-validator <delegator-addr>
 Query module parameters.
 
 ```go Query
-allianced query alliance params
+params
 ```
 
 ### Rewards
@@ -99,19 +95,17 @@ allianced query alliance params
 Query rewards generated for a specific Alliance by `delegator-addr`, `validator-addr`, and a `denom`.
 
 ```go Query
-allianced query alliance rewards <delegator-addr> <validator-addr> <denom>
+rewards delegator-addr validator-addr denom
 ```
 
 ## Governance
-
-For an in-depth look at creating, updating, or deleting an Alliance, visit the [Alliance creation guide](../guides/create.mdx).
 
 ### Create
 
 Create an Alliance with the specified parameters.
 
 ```go Governance
-allianced tx gov submit-legacy-proposal create-alliance <denom> <rewards-weight> <take-rate>
+create-alliance denom rewards-weight take-rate
 ```
 
 ### Update
@@ -119,7 +113,7 @@ allianced tx gov submit-legacy-proposal create-alliance <denom> <rewards-weight>
 Update an Alliance with the specified parameters.
 
 ```go Governance
-allianced tx gov submit-legacy-proposal update-alliance <denom> <rewards-weight> <take-rate>
+update-alliance denom rewards-weight take-rate
 ```
 
 ### Delete
@@ -127,5 +121,5 @@ allianced tx gov submit-legacy-proposal update-alliance <denom> <rewards-weight>
 Delete an Alliance with the specified denom. [See Deleting an Alliance for more details](../guides/create.mdx#delete-an-alliance).
 
 ```go Governance
-allianced tx gov submit-legacy-proposal delete-alliance <denom>
+delete-alliance denom
 ```
