@@ -42,7 +42,7 @@ The basic redelegation sequence is as follows.
 4. Claim the delegation rewards from the destination validator and query the delegation again to get the updated values.
 5. Calculate how many delegation shares are to be redelegated.
 6. Iterate over re-delegations to prevent transitive re-delegations.
-7. Remove the redelegated coins and shares from the origin validator.
+7. Remove the redelegated coins and shares from the source validator.
 8. Add the coins and shares to the destination validator.
 9. Queue the redelegations to be executed based on the unbonding time.
 10. Queue the rebalance assets event.

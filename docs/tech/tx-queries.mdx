@@ -4,15 +4,13 @@ title: Transactions and queries
 hide_title: false
 ---
 
-Users can interact with the Alliance module via **[gRPC](https://github.com/terra-money/alliance/blob/main/docs/static/openapi.yml)** or by using the set of subcommands from the Alliance module to **transact** and **query.** 
+Users can interact with the Alliance module via RPC/LCD or by using the set of subcommands from the Alliance module to **transact** and **query.**
 
 ## Transactions
-
 
 ### Delegate
 
 Delegate an amount of liquid Alliance-enabled coins to a validator from your wallet.
-
 
 ```go Tx
 tx alliance delegate <validator-addr> <amount>
@@ -28,8 +26,9 @@ tx alliance redelegate <src-validator-addr> <dst-validator-addr amount>
 
 ### Undelegate
 
-
 Undelegate an amount of liquid Alliance-enabled coins from a validator. These assets can be claimed after the unbonding period.
+
+<<<<<<< Updated upstream
 
 ```go Tx
 tx alliance undelegate <validator-addr> <amount>
@@ -43,8 +42,13 @@ Claim rewards from a delegation by specifying a denom and a validator address.
 tx alliance claim-rewards <validator-addr> <amount>
 ```
 
+## Queries
 
-## Queries 
+=======
+
+## Queries
+
+> > > > > > > Stashed changes
 
 ### Denom
 
@@ -124,6 +128,13 @@ update-alliance denom rewards-weight take-rate
 
 Delete an Alliance with the specified denom. [See Deleting an Alliance for more details](../guides/create.mdx#delete-an-alliance).
 
+<<<<<<< Updated upstream
+
 ```go Governance
 delete-alliance denom
 ```
+
+=======
+Delete an Alliance with the specified denom. [See Deleting an Alliance for more details](../guides/create.mdx#delete-an-alliance).
+
+> > > > > > > Stashed changes
