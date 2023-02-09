@@ -4,23 +4,28 @@ sidebar_position: 3
 
 import Admonition from '@theme/Admonition';
 
-# Cross-chain redelegation
+#  Redelegate: cross-chain
+
+
+
+To delegate an asset to a validator on a different chain, you will need to unstake the delegation, send the assets to the other chain, and delegate to your desired validator. 
 
 <Admonition type="info" icon="ℹ️" title="Redelegating on the same chain">
 
-If you would simply like to redelegate your tokens from one validator to another on the same chain, follow the steps in the [Redelegating tokens](./redelegating) section.
+To redelegate your tokens from one validator to another on the same chain, follow the steps in the [Redelegate tokens](./redelegate.mdx) section.
 
 </Admonition>
 
-If you would like to undelegate your tokens from one alliance and stake them in an alliance on another chain, you will first need to transfer them to the Terra chain. Referring to the diagram below, if we want to move from Chain 1 to Chain 3 in testnet, we will first need to transfer tokens from Chain 1 to Terra testnet (Pisco-1) then from Terra testnet (Pisco-1) to Chain 3.
+Referring to the diagram below, if we want to move from Chain 1 to Chain 3 in testnet, we will first need to transfer tokens from Chain 1 to Terra testnet (Pisco-1) then from Terra testnet (Pisco-1) to Chain 3.
 
 <img className="readme-img-sm" src="/img/user-guide/restaking.png" />
 
-In this example, we will walk through the steps of transferring 1 fOSMO, which will be staked to the Ordos chain, to the Corrino chain.
+
+In this example, you will walk through the steps of transferring 1 fOSMO, which will be staked to the Ordos chain, to the Corrino chain.
 
 ## Undelegate staked tokens
 
-1. From the [Game of Alliance staking page](https://game-of-alliance.pages.dev/staking) click the `MANAGE` button next to the validator with which you had originally staked your tokens. Be sure to select the blockchain and asset corresponding to your original stake at the top of the page.
+1. From the [Game of Alliance staking page](https://game-of-alliance.pages.dev/staking) click the **Manage** button next to the validator with which you had originally staked your tokens. Be sure to select the blockchain and asset corresponding to your original stake at the top of the page.
 
 <img className="readme-img-md" src="/img/user-guide/manage_undelegate.png" />
 
@@ -30,24 +35,40 @@ In this example, we will walk through the steps of transferring 1 fOSMO, which w
 
 <Admonition type="info" icon="ℹ️" title="Unbonding period">
 
-The current unbonding period is 1 hour. After unbonding, you may wish to work on something else while your tokens unbond.
+In this example, the current unbonding period is 1 hour. After unbonding begins, you may wish to work on something else while your tokens unbond.
 
 </Admonition>
 
-## Transfer assets to Terra
+## Transfer assets across chains
 
-1. After waiting one hour, navigate to the Station extension and click on transfer.
+1. Your coins will be undelegated after one hour.  You can use the send function in Station to transfer assets between your addresses on other chains. 
 
-<img className="readme-img-sm" src="/img/user-guide/transfer_extension.png" />
+1. Open the Station extension and click **Send**.
 
-2. Transfer the asset to the Terra chain from the origin chain. In this example, we will transfer the 1 fOSMO we just unbonded on the Ordos chain to the Terra chain.
+<img className="readme-img-sm" src="/img/transfer/1-send.png" />
 
-<img className="readme-img-sm" src="/img/user-guide/transfer_to_terra.png" />
+2. Select the **Asset** you would like to transfer. 
 
-## Transfer to destination chain
+<img className="readme-img-sm" src="/img/transfer/2-send.png" />
 
-1. After waiting for the transfer to complete, you can then transfer the amount from the Terra chain to the preferred destination chain. In this case, we will send the 1 fOSMO we received from the Ordos chain to the Corrino chain. Fill out the relevant transfer details after navigating to the Station extension and clicking on `Transfer`.
+3. Click the address book icon located to the right of the **Recipient** box. 
 
-<img className="readme-img-sm" src="/img/user-guide/transfer_to_corrino.png" />
+4. Click **Select from your addresses** to view your wallet addresses on other chains. 
 
-2. Now, you can navigate to the [Game of Alliance staking page](https://game-of-alliance.pages.dev/staking) to delegate. You can refer to the [Delegate tokens to your preferred Alliance](delegating#delegate-tokens-to-your-preferred-alliance) section to follow the steps to stake your asset.
+<img className="readme-img-sm" src="/img/transfer/3-address.png"/>
+
+5. Click the name of the chain you want to transfer to. This will input the address associated with your wallet on another chain. 
+
+<img className="readme-img-sm" src="/img/transfer/4-chain.png"/>
+
+6. Enter an amount and verify your details. Enter your password and click **Submit**. Your assets will be transferred. 
+
+<img className="readme-img-sm" src="/img/transfer/5-amount.png"/>
+
+<Admonition type="info" icon="ℹ️" title="Wait time">
+
+Cross-chain transactions may take some time to process. Station may need to be refreshed before you can see your assets. 
+
+</Admonition>
+
+7. Now, you can navigate to the [Game of Alliance staking page](https://game-of-alliance.pages.dev/staking) to delegate. You can refer to the [Delegate tokens to your preferred Alliance](./get-started.mdx#delegate-tokens-to-your-preferred-alliance) section to follow the steps to stake your asset.
