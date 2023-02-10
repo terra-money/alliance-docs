@@ -9,7 +9,7 @@ const homeCards: CardProps[] = [
     summary: 'Discover the Alliance module.'
   },
   {
-    href: '/tech/parameters',
+    href: '/game-of-alliance/overview',
     lightSVG: '/img/logo.png',
     darkSVG: '/img/logo.png',
     header: 'Play the Game of Alliance',
