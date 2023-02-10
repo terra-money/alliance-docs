@@ -87,11 +87,11 @@ module.exports = async function config() {
           //},
           items: [
             {
-              href: 'https://terra.money/', //front-end URL
+              href: 'https://game-of-alliance.terra.money/', //front-end URL
               position: 'right',
-              label: 'terra.money',
+              label: 'The Game of Alliance',
               className: 'header-terra-link',
-              'aria-label': 'Terra Money',
+              'aria-label': 'The Game of Alliance',
             },
             {
               href: 'https://github.com/terra-money/alliance',

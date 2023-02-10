@@ -1,0 +1,111 @@
+---
+sidebar_position: 2
+---
+
+import Admonition from '@theme/Admonition';
+
+# Get started: GoA staking
+
+The Game of Alliance is a three-week competition designed to battle-test the Alliance module ahead of its mainnet release. To learn more about the rules of the game, visit the [Overview page](./overview.mdx). In this tutorial, you will learn how to transfer your assets from one chain to another and use those funds in order to stake to a validator on the new chain.
+
+## Create a new Station wallet
+
+1. Follow the [Station extension download guide](https://docs.terra.money/learn/station/download/station-extension) to make sure that you have the newest version of the Station extension. 
+
+2. Create a new wallet by following [the wallet creation guide](https://docs.terra.money/learn/station/download/station-extension#create-a-wallet). Only new wallets without any transaction history will be eligible to play the Game of Alliance. 
+
+## Switch to the testnet
+
+The Game of Alliance can only be played on the testnet. Follow the next steps to switch your wallet to the testnet network.
+
+1. Open the Station extension in your Chrome browser.
+
+2. Click the gear icon (⚙) in the upper right-hand corner to open the settings menu. 
+
+3. Navigate to the Network tab and select **Testnet** from the network options.
+
+<img className="readme-img-sm" src="/img/goa/1-testnet.png" />
+
+## Request testnet funds from Alliance
+
+The faucet will send you funds so you can start playing. Remember that the faucet can only be used once per wallet address. 
+
+1. Navigate to the [Game of Alliance](https://game-of-alliance.terra.money/faucet) faucet.
+
+<img className="readme-img-md" src="/img/goa/2-faucet.png" />
+
+2. Connect your Station wallet by clicking the **Connect** button in the upper-right corner of the screen.
+
+<img className="readme-img-sm" src="/img/goa/3-connect.png" />
+
+3. Request all the tokens available on the page. These funds will be transferred to your wallet on the **testnet** network.
+
+<img className="readme-img-md" src="/img/goa/4-request.png" />
+
+## Transfer assets between chains
+
+Using your Station wallet, you will transfer one of the requested tokens from the prior step, fOSMO, from the Terra chain to the Ordos chain, where an Alliance is available with the tokens you just received.
+
+### Add CW20 tokens
+
+1. To add the CW20 tokens which were requested from the Game of Alliance Faucet, click on the **+ Add tokens** button below the Assets list in your Station extension.
+
+<img className="readme-img-sm" src="/img/goa/5-manage.png" />
+
+3. To view the coins in your wallet, click the **"+"** button next to the name of the tokens you received in the previous step. You can use the search bar to search for the names of each asset. Make sure the two checkboxes labeled "Hide non-whitelisted" and "Hide low-balance" are left unchecked. 
+
+<img className="readme-img-sm" src="/img/goa/6-manage.png" />
+
+### Interchain transfer
+
+You can use the send function in Station to transfer between your addresses on other chains. 
+
+1. Open the Station extension and click **Send**.
+
+<img className="readme-img-sm" src="/img/transfer/1-send.png" />
+
+2. Select the **Asset** you would like to transfer. 
+
+<img className="readme-img-sm" src="/img/transfer/2-send.png" />
+
+3. Click the address book icon located to the right of the **Recipient** box. 
+
+4. Click **Select from your addresses** to view your wallet addresses on other chains. 
+
+<img className="readme-img-sm" src="/img/transfer/3-address.png"/>
+
+5. Click the name of the chain you want to transfer to. This will input the address associated with your wallet on another chain. 
+
+<img className="readme-img-sm" src="/img/transfer/4-chain.png"/>
+
+6. Enter an amount and verify your details. Enter your password and click **Submit**. Your assets will be transferred. 
+
+<img className="readme-img-sm" src="/img/transfer/5-amount.png"/>
+
+<Admonition type="info" icon="ℹ️" title="Wait time">
+
+Cross-chain transactions may take some time to process. Station may need to be refreshed before you can see your assets. 
+
+</Admonition>
+
+## Delegate tokens to your preferred Alliance
+
+1. From the [Game of Alliance staking page](https://game-of-alliance.terra.money/staking), select from the Blockchains section in the upper left-hand corner, and select an asset from the Alliances section in the upper right. Then, you can click on the **MANAGE** button next to your preferred validator in the Validators list.
+
+<img className="readme-img-lg" src="/img/goa/delegate-1.png" />
+
+2. In the pop-up window, input the amount that you would like to delegate to the selected validator, and click **DELEGATE**.
+
+<img className="readme-img-sm" src="/img/goa/delegate-2.png" />
+
+3. Finally, sign the transaction from the Station extension pop-up.
+
+<img className="readme-img-sm" src="/img/goa/delegate-3.png" />
+
+Congratulations, you have just formed your first Alliance!
+
+## Claim rewards
+
+Over time, you will start to accrue rewards from the validator to which you had chosen to delegate. Once you earn a sufficient amount of rewards, you can click on the **CLAIM REWARDS** button in the upper right-hand corner of the Validators section to claim them.
+
+<img className="readme-img-md" src="/img/goa/claim-1.png" />
