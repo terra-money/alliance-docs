@@ -6,58 +6,100 @@ hide_title: false
 
 import Admonition from '@theme/Admonition';
 
-This testnet consists of four chains `ordos`, `corrino`, `harkonnen` and `atreides`.
+# Join the testnet
 
-## 1. Download or compile the chain binary
+The [Game of Alliance](../game-of-alliance/overview.mdx) testnet consists of four chains `ordos`, `corrino`, `harkonnen` and `atreides`.
 
-To join the testnet, download the binary or compile the source code from the [v0.0.1-goa tag of the Alliance repository](https://github.com/terra-money/alliance/releases/tag/v0.0.1-goa).
+## Instructions
 
-<Admonition type="tip" title="Install ignite">
+Specifically for validators, the following instructions will let you participate in the testnet chain of your choosing.
 
-To compile the code for a particular chain, replace the ACC_PREFIX with one of the four chains above.
+These are the Chain-IDs, native Denoms, and executable:
 
-```sh bash
-git clone https://github.com/terra-money/alliance.git && cd alliance
-git checkout v0.0.1-goa
-make build-alliance ACC_PREFIX=ordos
+```sh Chains
+Chain ID: ordos-1 Denom: uord Executable: ordosd
+Chain ID: corrino-1 Denom: ucor Executable: corrinod
+Chain ID: harkonnen-1 Denom: uhar Executable: harkonnend
+Chain ID: atreides-1 Denom: uatr Executable: atreidesd
 ```
 
-The binaries will be found in the `build` folder.
+## Machine requirements
 
-</Admonition>
-
-## 2. Join the testnet
-
-Joining the Game of Alliance testnet follows the same process as other CosmosSDK testnets. Terra has a very well-defined guide on how to [join a testnet](https://docs.terra.money/full-node/manage-a-terra-validator/).
-
-If you use the [Terra testnet guide](https://docs.terra.money/full-node/run-a-full-terra-node/) you must:
-
-- Use _`ordosd | corrinod | atreides | harkonnen`_ instead of _`terrad`_ commands.
-- Use the genesis file for the chain you want to join: [https://github.com/terra-money/alliance/tree/feat/wasm-testnets/genesis](https://github.com/terra-money/alliance/tree/feat/wasm-testnets/genesis) .
-- Use the following seeds to sync your node:
-
-| Chain       | Seeds                                                                                                                      |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------- |
-| atreides-1  | 36b2547e91dbaa1a6196217f25b767a8630fb0b2@54.196.186.174:41456,cd19f4418b3cd10951060aad1c4b4baf82177292@35.168.16.221:41456 |
-| corrino-1   | 5260976afec974fc0dea05be875841b126a6e322@54.196.186.174:41256,b59f1343587f64047ad331fd8ca8382887d34233@35.168.16.221:41256 |
-| harkonnen-1 | eeb02ac1de00fdb83179de62b897b15b27c65a55@54.196.186.174:41156,15e474a5163a3e63d4030c14e6e42cfd6e4d5afc@35.168.16.221:41156 |
-| ordos-1     | 2c66624a7bbecd94e8be4005d0ece19ce284d7c3@54.196.186.174:41356,6ebf0000ee85ff987f1d9de3223d605745736ca9@35.168.16.221:41356 |
-
-- Use the [faucet to request testnet funds](https://game-of-alliance.terra.money/faucet) to be able to submit transactions and create the validator
-
-
-```sh bash
-build/ordosd init <moniker>
-cp genesis/ordos-1/genesis.json ~/.ordos/config
+```sh Requirements
+Ubuntu 22.04
+4 CPU
+8gb ram
+200GB SSD NVME
+On AWS testing was done on c5.xlarge
+open port 26656
 ```
 
-```yaml ~/.ordos/config/config.yaml
-...
-# Comma separated list of seed nodes to connect to
-seeds = "2c66624a7bbecd94e8be4005d0ece19ce284d7c3@54.196.186.174:41356,6ebf0000ee85ff987f1d9de3223d605745736ca9@35.168.16.221:41356"
-...
+If accessing remotely, set up keys such as:
+
+```sh Setup
+ssh -i ~/Desktop/Keys/alliance.pem
+chmod 400 ~/Desktop/Keys/alliance.pem
+ssh -i ~/Desktop/Keys/alliance.pem ubuntu@0.00.000.000
 ```
 
-```sh bash
-build/ordosd start
+## Set up core
+
+```sh Setup
+curl -sSL https://raw.githubusercontent.com/terra-money/alliance/feat/wasm-testnets/scripts/join-testnet.sh -O 
+chmod 755 ./join-testnet.sh
 ```
+
+## Start the service
+
+```sh Setup
+tmux a
+./join-testnet.sh -c ordos-1
+
+```
+
+## Set up validator
+
+### Set up ordosd commands
+
+```sh Setup
+sudo cp ~/go/bin/ordosd /usr/local/bin/ordosd
+```
+
+### Create a key
+
+```sh Setup
+ordosd keys add <wallet name>
+ordosd keys add node
+```
+
+Be sure to record your mnemonic and address.
+
+### Get tokens 
+
+1. Connect your validator wallet to Station extension. 
+
+2. Visit the faucet: https://game-of-alliance.terra.money/faucet
+
+3. Get tokens for your validator wallet. 
+
+# View public key
+
+```sh Setup
+ordosd tendermint show-validator
+
+```
+
+## Create your validator
+
+### Example
+
+```ordosd tx staking create-validator \
+    --amount=5000000uord \
+    --pubkey=$(ordosd tendermint show-validator) \
+    --moniker="node" \
+    --chain-id=ordos-1 \
+    --from=node \
+    --commission-rate="0.10" \
+    --commission-max-rate="0.20" \
+    --commission-max-change-rate="0.01" \
+    --min-self-delegation="1"```
