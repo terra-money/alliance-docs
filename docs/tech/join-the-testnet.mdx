@@ -93,13 +93,15 @@ ordosd tendermint show-validator
 
 ### Example
 
-```ordosd tx staking create-validator \
-    --amount=5000000uord \
-    --pubkey=$(ordosd tendermint show-validator) \
-    --moniker="node" \
-    --chain-id=ordos-1 \
-    --from=node \
-    --commission-rate="0.10" \
-    --commission-max-rate="0.20" \
-    --commission-max-change-rate="0.01" \
-    --min-self-delegation="1"```
+```sh Setup
+ordosd tx staking create-validator \
+--amount=5000000uord \
+--pubkey=$(ordosd tendermint show-validator) \
+--moniker="node" \
+--chain-id=ordos-1 \
+--from=node \
+--commission-rate="0.10" \
+--commission-max-rate="0.20" \
+--commission-max-change-rate="0.01" \
+--min-self-delegation="1"
+```
