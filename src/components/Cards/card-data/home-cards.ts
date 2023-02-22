@@ -37,7 +37,7 @@ const homeCards: CardProps[] = [
     summary: 'Learn how to add Alliance to your chain.'
   },
   {
-    href: '/guides/join-the-testnet',
+    href: '/tech/join-the-testnet',
     lightSVG: '/img/icons/testnet.svg',
     darkSVG: '/img/icons/dark/testnet.svg',
     header: 'Join the testnet',
