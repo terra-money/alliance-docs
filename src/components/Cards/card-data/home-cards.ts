@@ -9,13 +9,6 @@ const homeCards: CardProps[] = [
     summary: 'Discover the Alliance module.'
   },
   {
-    href: '/game-of-alliance/overview',
-    lightSVG: '/img/logo.png',
-    darkSVG: '/img/logo.png',
-    header: 'Play the Game of Alliance',
-    summary: 'Learn about the game\'s rules, missions, and prizes.'
-  },
-  {
     href: '/alliance',
     lightSVG: '/img/icons/station/stake.svg',
     darkSVG: '/img/icons/dark/stake.svg',
@@ -37,11 +30,18 @@ const homeCards: CardProps[] = [
     summary: 'Learn how to add Alliance to your chain.'
   },
   {
-    href: '/tech/join-the-testnet',
+    href: '/tech/tx-queries',
     lightSVG: '/img/icons/testnet.svg',
     darkSVG: '/img/icons/dark/testnet.svg',
-    header: 'Join the testnet',
-    summary: 'Create your own Alliance testing chain.'
+    header: 'Transactions and queries',
+    summary: 'Learn how to interact with Alliance.'
+  },
+  {
+    href: '/tech/parameters',
+    lightSVG: '/img/icons/core/params.svg',
+    darkSVG: '/img/icons/dark/params.svg',
+    header: 'Module Parameters',
+    summary: 'Dive deep into the Alliance module specifications.'
   },
 ]
 
