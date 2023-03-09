@@ -21,7 +21,17 @@ module.exports = async function config() {
       defaultLocale: 'en',
       locales: ['en'],
     },
-    plugins: ['docusaurus-plugin-sass'],
+    plugins: [
+      'docusaurus-plugin-sass', 
+    [
+      require.resolve("@gabrielcsapo/docusaurus-plugin-matomo"),
+      {
+        siteId: "2",
+        matomoUrl: "https://terradocs.matomo.cloud/",
+        siteUrl: "https://alliance.terra.money",
+      },
+    ],
+  ],
     presets: [
       [
         'classic',
