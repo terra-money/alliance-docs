@@ -30,18 +30,18 @@ const homeCards: CardProps[] = [
     summary: 'Learn how to add Alliance to your chain.'
   },
   {
-    href: '/tech/tx-queries',
-    lightSVG: '/img/icons/testnet.svg',
-    darkSVG: '/img/icons/dark/testnet.svg',
-    header: 'Transactions and queries',
-    summary: 'Learn how to interact with Alliance.'
-  },
-  {
     href: '/tech/parameters',
     lightSVG: '/img/icons/core/params.svg',
     darkSVG: '/img/icons/dark/params.svg',
     header: 'Module Parameters',
     summary: 'Dive deep into the Alliance module specifications.'
+  },
+  {
+    href: '/alliance-audit.pdf',
+    lightSVG: '/img/icons/validator.svg',
+    darkSVG: '/img/icons/dark/validator.svg',
+    header: 'Code Audit',
+    summary: 'Review the Alliance module\'s code audit.'
   },
 ]
 
