@@ -41,7 +41,7 @@ const homeCards: CardProps[] = [
     lightSVG: '/img/icons/validator.svg',
     darkSVG: '/img/icons/dark/validator.svg',
     header: 'Code Audit',
-    summary: 'Review Alliance\'s secure code audit.'
+    summary: 'Review the Alliance module\'s code audit.'
   },
 ]
 
