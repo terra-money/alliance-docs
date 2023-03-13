@@ -14,8 +14,8 @@ const hyperlinks: HyperlinkProps[] = [
     innerHTML: 'Terra Finder',
   },
   {
-    href: 'https://agora.terra.money/',
-    innerHTML: 'Terra Agora',
+    href: '/alliance-audit.pdf',
+    innerHTML: 'Code Audit',
   },
 ]
 
