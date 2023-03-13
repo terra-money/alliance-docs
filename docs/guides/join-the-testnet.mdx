@@ -1,0 +1,110 @@
+---
+sidebar_position: 4
+---
+
+# Join the testnet
+
+import Admonition from '@theme/Admonition';
+
+<Admonition type="danger" icon="🤝" title="The game of Alliance is over">
+
+[The Game of Alliance](../game-of-alliance/overview.mdx) ended on March 2nd, 2023. 
+
+</Admonition>
+
+
+## Instructions
+
+Specifically for validators, the following instructions will let you participate in the Game of Alliance testnet.
+
+The following are the different Chain-IDs, native Denoms, and executables:
+
+```sh Chains
+Chain ID: ordos-1 Denom: uord Executable: ordosd
+Chain ID: corrino-1 Denom: ucor Executable: corrinod
+Chain ID: harkonnen-1 Denom: uhar Executable: harkonnend
+Chain ID: atreides-1 Denom: uatr Executable: atreidesd
+```
+
+## Machine requirements
+
+```sh Requirements
+Ubuntu 22.04
+4 CPU
+8gb ram
+200GB SSD NVME
+On AWS testing was done on c5.xlarge
+open port 26656
+```
+
+If accessing remotely, set up keys such as:
+
+```sh Setup
+ssh -i ~/Desktop/Keys/alliance.pem
+chmod 400 ~/Desktop/Keys/alliance.pem
+ssh -i ~/Desktop/Keys/alliance.pem ubuntu@0.00.000.000
+```
+
+## Set up core
+
+```sh Setup
+curl -sSL https://raw.githubusercontent.com/terra-money/alliance/feat/wasm-testnets/scripts/join-testnet.sh -O 
+chmod 755 ./join-testnet.sh
+```
+
+## Start the service
+
+```sh Setup
+tmux a
+./join-testnet.sh -c ordos-1
+
+```
+
+## Set up validator
+
+### Set up ordosd commands
+
+```sh Setup
+sudo cp ~/go/bin/ordosd /usr/local/bin/ordosd
+```
+
+### Create a key
+
+```sh Setup
+ordosd keys add <wallet name>
+ordosd keys add node
+```
+
+Be sure to record your mnemonic and address.
+
+### Get tokens 
+
+1. Connect your validator wallet to Station extension. 
+
+2. Visit the faucet.
+
+3. Get tokens for your validator wallet. 
+
+# View public key
+
+```sh Setup
+ordosd tendermint show-validator
+
+```
+
+## Create your validator
+
+### Example
+
+```sh Setup
+ordosd tx staking create-validator \
+--amount=5000000uord \
+--pubkey=$(ordosd tendermint show-validator) \
+--moniker="node" \
+--chain-id=ordos-1 \
+--from=node \
+--commission-rate="0.10" \
+--commission-max-rate="0.20" \
+--commission-max-change-rate="0.01" \
+--min-self-delegation="1"
+```
