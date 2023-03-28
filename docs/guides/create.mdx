@@ -8,34 +8,60 @@ import Admonition from '@theme/Admonition';
 
 Transactions that affect Alliances can only be executed via the governance module. All stakers agree on creating, updating, or disbanding Alliances through governance proposals.
 
-### Create an Alliance
+## Create an Alliance
 
 Creating an Alliance uses the `/alliance.alliance.MsgCreateAllianceProposal` type. This proposal type describes the `Alliance` attribute with the following properties:
 
-- **Denom**: The address of the Alliance asset that the community wants to whitelist.
-- [**RewardWeight**](../concepts/staking.mdx): Specifies the ratio of [reward power](../concepts/staking.mdx#reward-weight) given to each Alliance asset. A chain's native asset assumes a reward weight of 1.  
-    > $ratio = \frac{asset\_weight}{sum\_of\_total\_weight}$ 
-- [**TakeRate**](../concepts/rewards.mdx): Defines an annualized reward rate that will be redirected to the distribution rewards pool. Used for liquid staking derivatives.
-- **Title**: The name of the governance proposal.
-- **Description**: A description of the governance proposal.
+- **`denom`**: The address of the Alliance asset that the community wants to whitelist.
+- [**`rewards-weight`**](../concepts/staking.mdx): Specifies the ratio of [reward power](../concepts/staking.mdx#reward-weight) given to each Alliance asset. A chain's native asset assumes a reward weight of 1. 
+    - $ratio = \frac{asset\_weight}{sum\_of\_total\_weight}$ 
+- **`rewards-weight-min`**: The minimum RewardWeight possible. 
+-  **`rewards-weight-max`**: The maximum RewardWeight.
+- [**`take-rate`**](../concepts/rewards.mdx): The rate at which the Alliance asset will be redistributed to all stakers as rewards at every interval determined by the `TakeRateClaimInterval` module parameter. Used for liquid staking derivatives.
+- **`reward-change-rate`**: The rate at which the reward weight is scaled every interval. If the rate is less than `1`, the reward weight will tend toward `0`. 
+- **`reward-change-interval`**: The interval at which the `reward-change-rate` will be applied. 
 
-**Example**:
+For more information on Alliance asset properties, visit the [Asset page](../tech/asset.mdx). 
 
+### Usage
+
+```sh tx
+allianced tx gov submit-legacy-proposal create-alliance denom rewards-weight rewards-weight-min rewards-weight-max take-rate reward-change-rate reward-change-interval [flags]
 ```
-allianced tx gov submit-legacy-proposal create-alliance ibc/uluna 0.5 0.5 --from=demowallet1
+
+### Flags
+
+You can add a title, description, and an initial deposit to your proposal by adding the following flags: 
+
+```sh Flags
+--from string              Name or address of private key with which to sign
+--deposit string           deposit of proposal
+--description string       description of proposal
+--title string             title of proposal
 ```
 
-### Update an Alliance
+## Update an Alliance
 
 Updating an alliance uses the `/alliance.alliance.MsgUpdateAllianceProposal` type. This action has the same parameters as creating an Alliance. Note that an alliance can be updated only if the parameter `denom` matches a pre-existing Alliance.
 
-**Example**:
+### Usage
 
-```
-allianced tx gov submit-legacy-proposal update-alliance ibc/uluna 0.1 0.3 --from=demowallet1
+```sh tx
+allianced tx gov submit-legacy-proposal update-alliance denom rewards-weight take-rate reward-change-rate reward-change-interval [flags]
+ ```
+
+### Flags
+
+You can add a title, description, and an initial deposit to your proposal by adding the following flags: 
+
+```sh Flags
+--from string              Name or address of private key with which to sign
+--deposit string           deposit of proposal
+--description string       description of proposal
+--title string             title of proposal
 ```
 
-### Delete an Alliance
+## Delete an Alliance
 
 Deleting an Alliance is of type `/alliance.alliance.MsgDeleteAllianceProposal`. An Alliance cannot be deleted if there are still coins delegated to that Alliance.
 
@@ -46,8 +72,19 @@ The first step in deleting an Alliance is to update the Alliance asset's [`Rewar
 
 </Admonition>
 
-**Example**:
+### Usage
 
+```sh tx
+allianced tx gov submit-legacy-proposal delete-alliance denom
 ```
-allianced tx gov submit-legacy-proposal delete-alliance ibc/uluna --from=demowallet1
+
+### Flags
+
+You can add a title, description, and an initial deposit to your proposal by adding the following flags: 
+
+```sh Flags
+--from string              Name or address of private key with which to sign
+--deposit string           deposit of proposal
+--description string       description of proposal
+--title string             title of proposal
 ```
