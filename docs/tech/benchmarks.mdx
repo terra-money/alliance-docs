@@ -14,7 +14,7 @@ Benchmarks were collected using a simulation app running 1000 blocks. The main c
     - This bottleneck scales mainly by the number of assets with take rates.
     - This event can be tuned by increasing the [take rate](../concepts/rewards.mdx) claim interval.
 
-The worst-case complexity of rebalancing reward weight scales by $O(nA)$, where n is the number of active Alliance validators, and A is the number of Alliance assets. In practice, rebalancing only updates bonded validators with staked Alliance assets. The following table shows the benchmark data as the number of Alliance assets and validators varies.
+The worst-case complexity of rebalancing reward weight scales by $O(nA)$, where $n$ is the number of active Alliance validators, and $A$ is the number of Alliance assets. In practice, rebalancing only updates bonded validators with staked Alliance assets. The following table shows the benchmark data as the number of Alliance assets and validators varies.
 
 |  |  | Validators (Average block time in seconds) |
 | --- | --- | --- |
