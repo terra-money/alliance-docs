@@ -1,9 +1,18 @@
 ---
 sidebar_position: 2
 ---
+import Admonition from '@theme/Admonition';
+
 # Alliance asset properties
 
 The Alliance module also supports bootstrapping an Alliance-enabled chain by adding the following Alliances to the `assets` list in the genesis file under the `Alliance` property.
+
+<Admonition type="tip" title="Alliance-compatible assets">
+
+The Alliance module leverages the [IBC module](https://github.com/cosmos/ibc-go#ibc-go) to bridge foreign tokens and the [Token Factory module](https://docs.terra.money/develop/module-specifications/spec-token-factory/) to mint native tokens. Alliance allows any native token recognized by the bank module to be staked as long as it has been whitelisted. CW-20 tokens sent via IBC from other chains can be used in the Alliance module if they are minted as native tokens. 
+
+</Admonition>
+
 
 An Alliance asset consists of the following properties:
 

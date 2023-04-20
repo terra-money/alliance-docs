@@ -6,8 +6,14 @@ import Admonition from '@theme/Admonition';
 
 # Integrate the Alliance module
 
+
 Alliance can be integrated into both new and existing blockchains. It is an isolated module that doesn’t modify any existing CosmosSDK code. New blockchains can simply import the module and existing chains can perform a software upgrade.
 
+<Admonition type="caution">
+
+Follow all of the steps in this guide carefully. 
+
+</Admonition>
 
 Chains that want to create an Alliance must enable the following modules:
 
@@ -17,13 +23,12 @@ Chains that want to create an Alliance must enable the following modules:
 - [x/distribution](https://github.com/cosmos/cosmos-sdk/blob/main/x/distribution/README.md): withdraw rewards
 - [x/gov](https://github.com/cosmos/cosmos-sdk/blob/main/x/gov/README.md): create Alliances through governance
 
-The Alliance module leverages the IBC module [x/ibc](https://github.com/cosmos/ibc-go#ibc-go) to bridge foreign tokens. Alliance allows any [ADR 024](https://github.com/cosmos/cosmos-sdk/blob/main/docs/architecture/adr-024-coin-metadata.md#adr-024-coin-metadata) compliant token to be staked as long as it has been whitelisted.
+<Admonition type="tip" title="Alliance-compatible assets">
 
-<Admonition type="caution">
-
-Follow all of the steps in this guide carefully. 
+The Alliance module leverages the [IBC module](https://github.com/cosmos/ibc-go#ibc-go) to bridge foreign tokens and the [Token Factory module](https://docs.terra.money/develop/module-specifications/spec-token-factory/) to mint native tokens. Alliance allows any native token recognized by the bank module to be staked as long as it has been whitelisted. CW-20 tokens sent via IBC from other chains can be used in the Alliance module if they are minted as native tokens. 
 
 </Admonition>
+
 
 ## Prerequisites
 
