@@ -84,7 +84,7 @@ The total amount of theoretical shares created to keep track of asset ownership.
 
 ```
 
-The time in which the Alliance asset starts to be allocated rewards. This is used to prevent early stakers from controlling too much of the reward power by providing a warm-up period that allows users to start staking. After this period, rewards start accruing to Alliance stakers.
+The time in which the Alliance asset starts to be allocated rewards. This is used to prevent early stakers from controlling too much of the reward power by providing a warm-up period that allows users to start staking. After this period, rewards start accruing to Alliance stakers. This time is automatically generated based on the [`RewardDelayTime` module parameter](./parameters.mdx). The `RewardDelayTime` period is added to the timestamp of a successful Alliance creation proposal, specifying the `RewardStartTime`. 
 
 --- 
 
