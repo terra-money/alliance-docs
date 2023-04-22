@@ -8,7 +8,7 @@ Alliance is an [open-source Cosmos SDK module](https://github.com/terra-money/al
 
 ## Alliance: Stake any asset
 
-Staking is the process of locking up a crypto asset to provide economic stability and power the block production of a proof-of-stake blockchain. In exchange for locking up assets for a period, users earn staking rewards. By default, blockchains created using the Cosmos SDK have only one asset which can be staked, called the native asset. For example, the native staking asset for the Terra blockchain is Luna. The integration of the Alliance module allows additional assets to be staked. 
+Staking is the process of locking up a crypto asset to provide economic stability and power the block production of a proof-of-stake blockchain. In exchange for locking up assets for a period, users earn staking rewards. By default, blockchains created using the Cosmos SDK have only one asset which can be staked, called the native staking asset. For example, the native staking asset for the Terra blockchain is Luna. The integration of the Alliance module allows additional assets to be staked. 
 
 > **In simple terms, the Alliance module enables multiple assets to be staked on a chain.**  
 
@@ -20,7 +20,7 @@ The Alliance module can be [added to any compatible Cosmos chain](./guides/get-s
 
 ### What are Alliance assets? 
 
-An Alliance asset can technically be any asset, including IBC assets and Liquid Staking Derivatives (LSDs) from other chains. Assets can be minted on one chain, bridged through IBC, and staked on a chain with the Alliance module. Once staked, the asset will start accruing staking rewards. Like native staking assets, Alliance assets can be staked, unstaked, or redelegated to different validators. Alliance assets are also subject to an unbonding period after unstaking. To the user, staking an Alliance asset is as seamless as staking a native asset. For a more technical explanation of how Alliance assets are staked, visit the [Staking page](./concepts/staking.mdx).
+An Alliance asset can technically be any asset [compatible with the bank module](./tech/asset.mdx), including IBC assets and Liquid Staking Derivatives (LSDs) from other chains. Assets can be originated on one chain, bridged through IBC, and staked on a chain with the Alliance module. Once staked, the asset will start accruing staking rewards (as long as the [reward delay period has passsed](./concepts/staking.mdx#rewarddelaytime)). Like native staking assets, Alliance assets can be staked, unstaked, or redelegated to different validators. Alliance assets are also subject to an unbonding period after unstaking. To the user, staking an Alliance asset is as seamless as staking a native asset. For a more technical explanation of how Alliance assets are staked, visit the [Staking page](./concepts/staking.mdx).
 
 ![](/img/alliance/1-stake.png)
 
@@ -32,7 +32,7 @@ The Alliance module can be integrated into a chain via a software upgrade propos
 - A [Reward Weight](./concepts/staking.mdx#reward-weight): the proportion of total staking rewards to be directed to stakers of the asset.
 - a [Take Rate](./concepts/rewards.mdx): a tax that redistributes a percentage of the Alliance asset to stakers.
 
-After being approved, the assets become Alliance assets, which can be staked by users to start earning rewards.
+Other After being approved, the assets become Alliance assets, which can be staked by users to start earning rewards. For more information on adding Alliance assets, visit the [Alliance creation guide](./guides/create.mdx)
 
 ## Rewards
 
