@@ -10,9 +10,9 @@ Alliance is an open-source Cosmos SDK module that leverages interchain staking t
 
 ### Here’s how it works:
 
-- Two chains [integrate the Alliance module](./guides/get-started.mdx) and decide through governance which assets can be staked on their chain. These are known as [Alliance assets](./alliance.mdx#what-are-alliance-assets). 
+- A chain [integrates the Alliance module](./guides/get-started.mdx) and decides through governance which assets can be staked on the chain. These are known as [Alliance assets](./alliance.mdx#what-are-alliance-assets). 
 - Each Alliance asset is assigned a [Take Rate](./alliance.mdx#the-take-rate) (the percentage of staked Alliance assets the chain redistributes to native chain stakers) and a [Reward Weight](./alliance.mdx#rewards) (the percentage of native staking rewards the chain distributes to Alliance asset stakers).
-- Users of each chain can then [bridge their assets via IBC](./alliance.mdx#what-are-alliance-assets) to the other chain and stake them to earn the Reward Weight. 
+- Users can then [bridge whitelisted assets via IBC from other chains](./alliance.mdx#what-are-alliance-assets) and stake them to earn the Reward Weight. 
 
 ## Use Cases
 
@@ -20,7 +20,7 @@ The Alliance module presents users and decentralized economies alike with severa
 
 ### 1. Diversifying and Augmenting Staking Yield
 
-Any asset can be used with the Alliance module, including IBC assets, stablecoins, LP tokens, or [liquid staking derivatives (LSDs)](./alliance.mdx#liquid-staking-derivatives). Newer, lower liquidity chains can augment their native staking yield with uncorrelated, less volatile, and more liquid Alliance assets by [setting the Take Rate above 0%](./alliance.mdx#lsds-and-the-take-rate). 
+Any asset [compatible with the bank module](./tech/asset.mdx) can be used with the Alliance module, including IBC assets or [liquid staking derivatives (LSDs)](./alliance.mdx#liquid-staking-derivatives). Newer, lower liquidity chains can augment their native staking yield with uncorrelated, less volatile, and more liquid Alliance assets by [setting the Take Rate above 0%](./alliance.mdx#lsds-and-the-take-rate). 
 
 Conversely, suppose an Alliance LSD asset has a Take Rate of 0% and a Reward Weight above 0%. In that case, users can diversify and boost their yield by staking on one chain, bridging their LSD to the allied chain, and staking it – thereby earning a second yield [in the form of that chain’s native token](./alliance.mdx#where-do-staking-rewards-come-from).
 
