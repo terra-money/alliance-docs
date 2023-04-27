@@ -163,7 +163,7 @@ For more information about rewards, visit the [rewards](../concepts/rewards.mdx)
 
 ## Take Rate Deduction
 
-The `TakeRate` is deducted at an interval defined in the module parameters as `Params.RewardClaimInterval`. The previous time this deduction was executed is saved in `Params.LastRewardClaimTime`. During every endblock, the Alliance module will check to see if the current block time minus the `LastRewardClaimTime` is greater than the `RewardsClaimInterval`.
+The `TakeRate` is deducted at an interval defined in the module parameters as `Params.RewardClaimInterval`. The previous time this deduction was executed is saved in `Params.LastRewardClaimTime`. At the end of every block, the Alliance module will check to see if the current block time minus the `LastRewardClaimTime` is greater than the `RewardsClaimInterval`.
 
 If true, it will apply the `TakeRate` to the assets and send the deducted tokens to the fee collector module account to be redistributed among stakers. For more information about the `TakeRate`, visit the [rewards](../concepts/rewards.mdx) section. 
 
