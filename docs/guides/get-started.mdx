@@ -322,3 +322,32 @@ func (app *App) BlockedModuleAccountAddrs() map[string]bool {
 }
 
 ```
+
+## Specify the fee collector module account
+
+The following steps allow you to specify a fee collector account, allowing for more flexibility in configuration. If you don't want to specify a custom fee collector, specify the default fee collector. 
+
+1. Add _`authtypes.FeeCollectorName,`_ to the _`AllianceKeeper`_ in _`app.go`_.
+
+```go app.go mark=9
+app.AllianceKeeper = alliancemodulekeeper.NewKeeper(
+	appCodec,
+	keys[alliancemoduletypes.StoreKey],
+	app.GetSubspace(alliancemoduletypes.ModuleName),
+	app.AccountKeeper,
+	app.BankKeeper,
+	app.StakingKeeper,
+	app.DistrKeeper,
+	authtypes.FeeCollectorName,
+)
+```
+
+2. Add the following line to specify the fee collector. If you don't want to specify a custom fee collector, specify the default _`FeeCollector`_. 
+
+```go app.go mark=3
+type App struct {
+    ...
+    feeCollectorName string // name of the FeeCollector ModuleAccount
+    ...
+}
+```
