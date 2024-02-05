@@ -4,30 +4,43 @@ sidebar_position: 2
 
 # 🤝 Overview
 
-Alliance is an open-source Cosmos SDK module that leverages interchain staking to form economic alliances among blockchains. By boosting the economic activity across Cosmos chains through creating bilateral, mutually beneficial alliances, Alliance aims to give rise to a new wave of innovation, user adoption, and cross-chain collaboration.
+Alliance is an open-source Cosmos SDK module that leverages interchain staking to form economic alliances among blockchains. By boosting the economic activity across Cosmos chains through creating bilateral, mutually beneficial relationships—similar to trade agreements between countries—Alliance aims to give rise to a new wave of innovation, user adoption, and cross-chain collaboration.
 
-**Alliance allows blockchains to trade yield with each other- think of it like yield farming for L1s.**
+## Here’s how Alliance works:​
 
-### Here’s how it works:
+- First, a chain [integrates the Alliance module](./guides/get-started.mdx). Alliance is compatible with all Cosmos SDK blockchains and can be integrated with minimal configuration.
+- Second, community members decide through governance which assets can be staked on their chain to earn staking rewards and be redistributed to the chain’s token stakers. These are known as [Alliance assets](./alliance.mdx#what-are-alliance-assets). Almost any token can qualify as an Alliance asset, including liquid staking tokens from other blockchains, liquidity provider tokens, receipt tokens from depositing into applications, and stablecoins. 
+- Each Alliance asset is assigned a [Take Rate](./alliance.mdx#the-take-rate) (i.e., the percentage of staked Alliance assets the chain redistributes to native token stakers) and a [Reward Weight](./alliance.mdx#rewards) (i.e., the percentage of native staking rewards the chain distributes to Alliance asset stakers).
+- Once a chain has whitelisted Alliance assets, any user can stake those tokens on the chain to earn Alliance yield (i.e., that asset’s Reward Weight). If the Alliance asset is from another chain (e.g., a liquid staking token), users can send the Alliance asset to the chain they’d like to stake on via IBC. 
 
-- A chain [integrates the Alliance module](./guides/get-started.mdx) and decides through governance which assets can be staked on the chain. These are known as [Alliance assets](./alliance.mdx#what-are-alliance-assets). 
-- Each Alliance asset is assigned a [Take Rate](./alliance.mdx#the-take-rate) (the percentage of staked Alliance assets the chain redistributes to native chain stakers) and a [Reward Weight](./alliance.mdx#rewards) (the percentage of native staking rewards the chain distributes to Alliance asset stakers).
-- Users can then [bridge whitelisted assets via IBC from other chains](./alliance.mdx#what-are-alliance-assets) and stake them to earn the Reward Weight. 
 
-## Use Cases
+## Use Cases​
 
-The Alliance module presents users and decentralized economies alike with several use cases, including:
+The Alliance module presents decentralized economies with several use cases, including:
 
-### 1. Diversifying and Augmenting Staking Yield
+### 1. Diversifying & Augmenting Staking Yield​
 
-Any asset [compatible with the bank module](./tech/asset.mdx) can be used with the Alliance module, including IBC assets or [liquid staking derivatives (LSDs)](./alliance.mdx#liquid-staking-derivatives). Newer, lower liquidity chains can augment their native staking yield with uncorrelated, less volatile, and more liquid Alliance assets by [setting the Take Rate above 0%](./alliance.mdx#lsds-and-the-take-rate). 
+A chain can whitelist any token [compatible with the bank module](./tech/asset.mdx) as an Alliance asset, including [liquid staking tokens (LSTs)](./alliance.mdx#liquid-staking-derivatives) and other IBC assets. Newer chains can diversify and augment their native staking yield by whitelisting LSTs from larger chains as Alliance assets and [setting the Take Rate above 0%](./alliance.mdx#lsts-and-the-take-rate). This enables users of the established chains to stake their tokens on the newer one to earn staking rewards. In return, a portion of the larger chain’s tokens can be redistributed to the newer chain’s stakers. Supporters of the newer blockchain now earn rewards not just in the newer chain’s token, but also in the uncorrelated, less volatile, and more liquid tokens of the established chains. 
 
-Conversely, suppose an Alliance LSD asset has a Take Rate of 0% and a Reward Weight above 0%. In that case, users can diversify and boost their yield by staking on one chain, bridging their LSD to the allied chain, and staking it – thereby earning a second yield [in the form of that chain’s native token](./alliance.mdx#where-do-staking-rewards-come-from).
+In this way, Alliance creates a win-win relationship: the newer network attracts more supporters because they get diverse and stable rewards, and the larger blockchain’s token holders gain a new opportunity to boost their earnings, which provides additional utility to the larger chain’s token.
 
-### 2. Attracting Users, Liquidity, and Developers
+### 2. Attracting Users, Liquidity, and Developers​
 
-By setting the Take Rate of an Alliance asset to 0%, a blockchain can attract new users and liquidity from allied chain participants who bridge and stake their assets within their ecosystem. Alliance staking translates to positive reflexivity: Higher usage -> higher liquidity -> more developers building useful dApps  -> higher usage -> higher liquidity, and so on. 
+If you think of blockchains like digital nation-states, Alliance allows chains to adjust their monetary policy (i.e., redirect staking rewards) to buy immigration. By whitelisting tokens from other blockchains as Alliance assets and setting a 0% (or reasonable) Take Rate, new users and capital will flow into the ecosystem as users bridge and stake their assets on the allied chain. Hence, Alliance staking translates to positive reflexivity: Higher usage -> higher liquidity -> more developers building useful dApps -> higher usage -> higher liquidity, and so on.
 
-### 3. Incentivizing Application Developers
+### 3. Incentivizing User Behaviors that Expand the Ecosystem
 
-Alliance can offer L1 staking yield to app token stakers in the ecosystem – thereby allowing users of the most promising apps to be rewarded directly from [fees and inflation of the underlying L1](./alliance.mdx#where-do-staking-rewards-come-from).
+As mentioned above, almost any token can qualify as an Alliance asset, including liquid staking tokens from other blockchains, liquidity provider tokens, receipt tokens from depositing into applications, and stablecoins. This empowers blockchain communities to not only attract new supporters through the creation of Alliances with other chains, but also redirect staking rewards to incentivize various user activities that benefit their ecosystem, such as liquidity provision and liquidation bidding. 
+For example, most chains need deep liquidity for at least one pool: the chain’s token paired with a stablecoin (e.g., TOKEN - USDC). To ensure low slippage and seamless swaps between these tokens while driving increased on-chain transaction volume, a chain could whitelist the TOKEN - USDC LP token from a native DEX as an Alliance asset, incentivizing users to provide liquidity to the pool and stake their LP tokens in the Alliance module to earn boosted rewards (via the Alliance asset’s Take Rate). 
+
+### 4. Incentivizing Application Developers​
+
+Alliance can offer L1 staking yield to app token stakers in the ecosystem—thereby allowing users of the most promising apps to be rewarded directly from [fees and inflation of the underlying L1](./alliance.mdx#where-do-staking-rewards-come-from).
+
+### 5. Strengthening Token Utility
+
+By forging mutually beneficial alliances with other ecosystems, chains can transform their native token into an interchain staking asset, allowing users to stake it on the native chain (to receive an LST and native staking rewards), and then send it to an allied chain and restake it to earn boosted yield in the form of the allied chain’s token. In addition to making the underlying asset more interesting to hold and stake, this has the added benefit of reducing the token’s circulating supply.
+
+## Integrating Alliance
+
+Follow the steps in the [integration guide](./guides/get-started.mdx) to add the Alliance module to your chain. To connect with a member of the Alliance team for questions regarding integration, setting Alliance asset parameters, or other related items, please complete [this form](https://forms.gle/mWSKNN6MznpEpW5f8). 
