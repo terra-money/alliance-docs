@@ -10,7 +10,7 @@ module.exports = async function config() {
   return {
     title: 'Alliance Docs',
     tagline: 'The official docs for Alliance',
-    url: 'https://alliance.terra.money',
+    url: 'https://alliance.money',
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
