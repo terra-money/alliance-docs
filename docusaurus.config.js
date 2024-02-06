@@ -10,7 +10,7 @@ module.exports = async function config() {
   return {
     title: 'Alliance Docs',
     tagline: 'The official docs for Alliance',
-    url: 'https://alliance.money',
+    url: 'https://docs.alliance.money',
     baseUrl: '/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
@@ -28,7 +28,7 @@ module.exports = async function config() {
       {
         siteId: "2",
         matomoUrl: "https://terradocs.matomo.cloud/",
-        siteUrl: "https://alliance.terra.money",
+        siteUrl: "https://alliance.money",
       },
     ],
   ],
