@@ -83,6 +83,12 @@ module.exports = async function config() {
             autoCollapseCategories: false,
           },
         },
+        algolia: {
+          appId: '48DQIRZMH2',
+          apiKey: '89cdc498a96d31272ed0d0966128a86a',
+          indexName: 'alliance',
+          contextualSearch: true,
+        },
         tableOfContents: {
           minHeadingLevel: 2,
           maxHeadingLevel: 4,
