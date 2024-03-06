@@ -85,7 +85,7 @@ module.exports = async function config() {
         },
         algolia: {
           appId: '48DQIRZMH2',
-          apiKey: '89cdc498a96d31272ed0d0966128a86a',
+          apiKey: '8f006e6bfad9457a8b263063a82a73c3',
           indexName: 'alliance',
           contextualSearch: true,
         },
